@@ -57,7 +57,7 @@ export default function HomePage() {
 
         {/* Hero content - text over gradient - with fade on scroll */}
         <motion.div
-          className="container relative z-10 mx-auto max-w-7xl px-6 py-20"
+          className="container relative z-10 mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-20"
           style={{ opacity }}
         >
           <div className="max-w-5xl">
@@ -92,7 +92,7 @@ export default function HomePage() {
               <MagneticText
                 text="Vansh Sinha"
                 hoverText="Let's Build"
-                textClassName="text-7xl md:text-8xl lg:text-9xl font-normal tracking-tight leading-[0.9]"
+                textClassName="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-normal tracking-tight leading-[0.9]"
                 className="cursor-pointer"
                 style={{ fontFamily: "var(--font-favorit)" }}
               />
@@ -107,7 +107,7 @@ export default function HomePage() {
                 ease: [0.16, 1, 0.3, 1],
                 delay: 0.6,
               }}
-              className="text-xl text-white/70 md:text-2xl lg:text-3xl font-light max-w-3xl leading-relaxed"
+              className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/70 font-light max-w-3xl leading-relaxed"
             >
               Data engineer & full-stack developer building scalable systems
               that process millions of events.
@@ -128,7 +128,7 @@ export default function HomePage() {
                 <Button
                   asChild
                   size="lg"
-                  className="bg-[#3b0dd4] text-white hover:bg-[#2a0ba0] pl-12 pr-8 py-6 text-lg font-medium rounded-full shadow-2xl shadow-[#3b0dd4]/30 hover:shadow-[#3b0dd4]/50 hover:scale-105 transition-all"
+                  className="bg-[#3b0dd4] text-white hover:bg-[#2a0ba0] pl-8 pr-6 sm:pl-12 sm:pr-8 py-4 sm:py-6 text-base sm:text-lg font-medium rounded-full shadow-2xl shadow-[#3b0dd4]/30 hover:shadow-[#3b0dd4]/50 hover:scale-105 transition-all"
                 >
                   <Link
                     href="/work"
@@ -144,7 +144,7 @@ export default function HomePage() {
                   asChild
                   variant="outline"
                   size="lg"
-                  className="border-2 border-white/60 bg-white/10 text-white hover:bg-white/20 hover:border-white/80 px-8 py-6 text-lg font-medium rounded-full backdrop-blur-sm hover:scale-105 transition-transform"
+                  className="border-2 border-white/60 bg-white/10 text-white hover:bg-white/20 hover:border-white/80 px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg font-medium rounded-full backdrop-blur-sm hover:scale-105 transition-transform"
                 >
                   <Link href="/contact">Contact</Link>
                 </Button>
@@ -172,8 +172,8 @@ export default function HomePage() {
       <CinematicTransition />
 
       {/* Featured Work */}
-      <section className="border-b border-border/40 py-24 bg-background">
-        <div className="container mx-auto max-w-6xl px-6">
+      <section className="border-b border-border/40 py-16 sm:py-24 bg-background">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -217,8 +217,8 @@ export default function HomePage() {
       </section>
 
       {/* Writing */}
-      <section className="border-b border-border/40 py-24">
-        <div className="container mx-auto max-w-6xl px-6">
+      <section className="border-b border-border/40 py-16 sm:py-24">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -263,8 +263,8 @@ export default function HomePage() {
       </section>
 
       {/* Technologies */}
-      <section className="border-b border-border/40 py-24">
-        <div className="container mx-auto max-w-6xl px-6">
+      <section className="border-b border-border/40 py-16 sm:py-24">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}

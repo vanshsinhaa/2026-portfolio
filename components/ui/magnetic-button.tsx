@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
 import { motion } from "framer-motion"
 
 interface MagneticButtonProps {
@@ -14,9 +14,20 @@ interface MagneticButtonProps {
 export function MagneticButton({ children, className, strength = 0.3, range = 80 }: MagneticButtonProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [position, setPosition] = useState({ x: 0, y: 0 })
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    // Detect if user is on a touch device
+    const checkMobile = () => {
+      setIsMobile(window.matchMedia("(max-width: 768px)").matches || 'ontouchstart' in window)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return
+    if (!ref.current || isMobile) return // Disable on mobile
 
     const rect = ref.current.getBoundingClientRect()
     const centerX = rect.left + rect.width / 2
@@ -29,6 +40,7 @@ export function MagneticButton({ children, className, strength = 0.3, range = 80
   }
 
   const handleMouseLeave = () => {
+    if (isMobile) return
     setPosition({ x: 0, y: 0 })
   }
 
@@ -49,8 +61,8 @@ export function MagneticButton({ children, className, strength = 0.3, range = 80
       }}
       className={className}
       style={{
-        padding: `${range}px`,
-        margin: `-${range}px`,
+        padding: isMobile ? '0' : `${range}px`, // Remove padding on mobile
+        margin: isMobile ? '0' : `-${range}px`, // Remove negative margin on mobile
       }}
     >
       {children}

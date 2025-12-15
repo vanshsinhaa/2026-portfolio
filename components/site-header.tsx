@@ -110,9 +110,9 @@ export function SiteHeader() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 h-screen w-80 bg-background border-l border-border z-[60] shadow-2xl"
+              className="fixed top-0 right-0 h-screen w-full sm:w-80 max-w-md bg-background border-l border-border z-[60] shadow-2xl"
             >
-              <div className="flex flex-col items-start justify-center h-full px-12 gap-8">
+              <div className="flex flex-col items-start justify-center h-full px-8 sm:px-12 gap-6 sm:gap-8">
                 {links.map((link, index) => (
                   <motion.div
                     key={link.href}
@@ -123,7 +123,7 @@ export function SiteHeader() {
                     <Link
                       href={link.href}
                       className={cn(
-                        "group relative text-4xl tracking-tight transition-all duration-300 hover:opacity-100",
+                        "group relative text-3xl sm:text-4xl tracking-tight transition-all duration-300 hover:opacity-100",
                         pathname === link.href ? "opacity-100" : "opacity-60"
                       )}
                       style={{ 
