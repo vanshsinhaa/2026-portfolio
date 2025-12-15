@@ -47,9 +47,11 @@ export default function HomePage() {
         {/* Unicorn gradient animation background - with parallax */}
         <motion.div className="absolute inset-0 -m-4" style={{ y }}>
           <UnicornScene
-            projectId="5m4NwpaMZIbtykKVZJ8L?update=3.0"
-            width={2000}
-            height={1200}
+            projectId="5m4NwpaMZIbtykKVZJ8L"
+            width={1440}
+            height={900}
+            dpi={0.35}
+            lazy={true}
             production={true}
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full object-cover"
           />

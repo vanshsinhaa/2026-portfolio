@@ -40,28 +40,29 @@ export function UnicornScene({
         const script = document.createElement("script")
         script.src = "https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.5.3/dist/unicornStudio.umd.js"
         script.async = true
+        script.defer = true
         script.onload = () => {
           if (window.UnicornStudio && !window.UnicornStudio.isInitialized) {
-            window.UnicornStudio.init()
-            window.UnicornStudio.isInitialized = true
+            // Delay init slightly to allow page to paint first
+            requestAnimationFrame(() => {
+              window.UnicornStudio!.init()
+              window.UnicornStudio!.isInitialized = true
+            })
           }
         }
         ;(document.head || document.body).appendChild(script)
         scriptLoadedRef.current = true
       } else if (window.UnicornStudio && !scriptLoadedRef.current) {
         // Re-initialize on client-side navigation
-        window.UnicornStudio.init()
+        requestAnimationFrame(() => {
+          window.UnicornStudio!.init()
+        })
         scriptLoadedRef.current = true
       }
     }
 
-    // Load after page is interactive
-    if (document.readyState === "complete") {
-      loadScript()
-    } else {
-      window.addEventListener("load", loadScript)
-      return () => window.removeEventListener("load", loadScript)
-    }
+    // Load immediately, but init is deferred
+    loadScript()
     
     // Cleanup on unmount
     return () => {
@@ -77,7 +78,12 @@ export function UnicornScene({
       data-us-dpi={dpi}
       data-us-production={production ? "true" : "false"}
       className={className}
-      style={{ width: `${width}px`, height: `${height}px` }}
+      style={{ 
+        width: `${width}px`, 
+        height: `${height}px`,
+        willChange: 'transform',
+        transform: 'translateZ(0)',
+      }}
     />
   )
 }
