@@ -175,6 +175,17 @@
   html::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera */
   }
+
+  /* Hide Unicorn Studio watermark */
+  [data-us-project] a[href*="unicorn"],
+  [data-us-project] a[href*="hiunicornstudio"],
+  [data-us-project] > a:last-child,
+  div[data-us-project] > div > a {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
 }
 
 /* Enhanced typography for editorial feel */
