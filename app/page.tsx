@@ -33,7 +33,7 @@ export default function HomePage() {
       <section
         ref={heroRef}
         id="hero-section"
-        className="relative overflow-hidden border-b border-border/40 min-h-screen flex items-center"
+        className="relative overflow-hidden border-b border-border/40 min-h-screen flex items-center bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700"
       >
         {/* Fallback gradient (shows while Unicorn loads) - with parallax */}
         <motion.div
