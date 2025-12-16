@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { X, Menu } from "lucide-react"
 
 export function SiteHeader() {
   const pathname = usePathname()
@@ -61,29 +60,34 @@ export function SiteHeader() {
 
   return (
     <>
-      {/* Menu Toggle Button */}
+      {/* Burger Menu Button */}
       <button
         onClick={() => setIsMenuOpen(!isMenuOpen)}
-        className={cn(
-          "fixed top-8 right-8 z-[60] w-10 h-10 flex items-center justify-center rounded-full transition-all duration-300",
-          isMenuOpen ? "bg-[#3b0dd4] hover:bg-[#2a0ba0]" : "bg-transparent hover:bg-white/10"
-        )}
+        className="fixed top-8 right-8 z-[60] flex flex-col justify-center gap-1.5 w-8 h-8 group"
         aria-label="Toggle menu"
       >
-        {isMenuOpen ? (
-          <X 
-            className="w-6 h-6 text-white" 
-            strokeWidth={2}
-          />
-        ) : (
-          <Menu 
-            className={cn(
-              "w-6 h-6 transition-colors",
-              isOverLight && !isOverFooter ? "text-[#3b0dd4]" : "text-white"
-            )}
-            strokeWidth={2}
-          />
-        )}
+        <span
+          className={cn(
+            "block h-0.5 w-full transition-all duration-300",
+            isMenuOpen ? "rotate-45 translate-y-2" : "",
+            // White over footer or dark sections, blue over light sections
+            isOverLight && !isOverFooter ? "bg-[#3b0dd4]" : "bg-white"
+          )}
+        />
+        <span
+          className={cn(
+            "block h-0.5 w-full transition-all duration-300",
+            isMenuOpen ? "opacity-0" : "opacity-100",
+            isOverLight && !isOverFooter ? "bg-[#3b0dd4]" : "bg-white"
+          )}
+        />
+        <span
+          className={cn(
+            "block h-0.5 w-full transition-all duration-300",
+            isMenuOpen ? "-rotate-45 -translate-y-2" : "",
+            isOverLight && !isOverFooter ? "bg-[#3b0dd4]" : "bg-white"
+          )}
+        />
       </button>
 
       {/* Vertical Sidebar Menu */}
