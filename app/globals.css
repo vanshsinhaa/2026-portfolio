@@ -166,6 +166,15 @@
     background-color: #3b0dd4;
     color: white;
   }
+
+  /* Hide scrollbar while keeping scroll functionality */
+  html {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+  html::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
 }
 
 /* Enhanced typography for editorial feel */
