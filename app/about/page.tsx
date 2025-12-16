@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import Image from "next/image"
+import { HoverImage } from "@/components/hover-image"
 
 export default function AboutPage() {
   const experience = [
@@ -53,19 +54,37 @@ export default function AboutPage() {
       >
         <h2 className="text-3xl font-normal md:text-4xl">Background</h2>
         <div className="mt-6 space-y-4 text-base md:text-lg leading-relaxed text-muted-foreground">
-          <p>
-            I'm a Computer Science student at Arizona State University (graduating May 2027) with a minor in Data Science. 
+          <div>
+            I'm a Computer Science student at{" "}
+            <HoverImage 
+              text="Arizona State University" 
+              imageSrc="/asu_oldmain.jpg" 
+              imageAlt="Arizona State University Old Main"
+            />{" "}
+            (graduating May 2027) with a minor in Data Science. 
             I specialize in building data infrastructure and full-stack applications that scale. My work focuses on the 
             intersection of data engineering, cloud infrastructure, and developer experience.
-          </p>
-          <p>
-            I believe in writing simple, maintainable code and building systems that are easy to operate. Good
-            observability isn't optional—it's how you sleep well at night when you're running production systems.
-          </p>
-          <p>
-            When I'm not coding, you'll find me competing in hackathons (top 10% twice at HackerDevils), working with 
-            AI communities, or exploring new technologies and frameworks.
-          </p>
+          </div>
+          <div>
+            I believe in writing simple, maintainable code and building systems that are reliable and easy to understand. 
+            I focus on creating solutions that work consistently and can be trusted in production environments.
+          </div>
+          <div>
+            When I'm not coding, you'll find me watching{" "}
+            <HoverImage 
+              text="my favorite shows" 
+              imageSrc="/thorfinn.jpg" 
+              imageAlt="Thorfinn from Vinland Saga"
+            />
+            ,{" "}
+            <HoverImage 
+              text="playing basketball" 
+              imageSrc="/kobe.jpg" 
+              imageAlt="Kobe Bryant"
+            />
+            , competing in hackathons (top 10% twice at HackerDevils), working with AI communities, 
+            or exploring new technologies and frameworks.
+          </div>
         </div>
       </motion.section>
 
