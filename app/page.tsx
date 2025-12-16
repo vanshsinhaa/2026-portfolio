@@ -34,6 +34,7 @@ export default function HomePage() {
         ref={heroRef}
         id="hero-section"
         className="relative overflow-hidden border-b border-border/40 min-h-screen flex items-center bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700"
+        style={{ overflow: "hidden" }}
       >
         {/* Fallback gradient (shows while Unicorn loads) - with parallax */}
         <motion.div
@@ -45,15 +46,21 @@ export default function HomePage() {
         />
 
         {/* Unicorn gradient animation background - with parallax */}
-        <motion.div className="absolute inset-0 -m-4 overflow-hidden" style={{ y }}>
+        <motion.div
+          className="absolute inset-0 -m-4 overflow-hidden"
+          style={{
+            y,
+            clipPath: "inset(0 0 0 0)", // Force clipping
+          }}
+        >
           <UnicornScene
             projectId="5m4NwpaMZIbtykKVZJ8L"
             width={1920}
-            height={1080}
+            height={1200}
             dpi={0.6}
             lazy={true}
             production={true}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full object-cover"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[40%] min-w-full min-h-[115%] object-cover"
           />
         </motion.div>
 

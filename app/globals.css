@@ -176,15 +176,26 @@
     display: none; /* Chrome, Safari, Opera */
   }
 
-  /* Hide Unicorn Studio watermark */
+  /* Hide Unicorn Studio watermark - aggressive targeting */
   [data-us-project] a[href*="unicorn"],
   [data-us-project] a[href*="hiunicornstudio"],
   [data-us-project] > a:last-child,
-  div[data-us-project] > div > a {
+  div[data-us-project] > div > a,
+  div[data-us-project] a,
+  [data-us-project] div:last-child,
+  [data-us-project] > div:last-child > a,
+  [data-us-project] > div > div:last-child,
+  [data-us-project] canvas + div,
+  [data-us-project] canvas ~ a {
     display: none !important;
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
+    position: absolute !important;
+    left: -9999px !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
   }
 }
 
