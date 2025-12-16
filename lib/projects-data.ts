@@ -43,19 +43,6 @@ export const projects: Project[] = [
     gradient: "from-blue-600/20 via-indigo-500/20 to-purple-600/20",
   },
   {
-    slug: "k8s-query-runner",
-    title: "Kubernetes Query Runner",
-    problem: "Automated BigQuery job orchestration",
-    stack: ["Kubernetes", "BigQuery", "Python", "Docker"],
-    metric: "99.9% uptime",
-    featured: false,
-    category: "infrastructure",
-    year: "2024",
-    image:
-      "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=800&q=80",
-    gradient: "from-cyan-500/20 via-blue-500/20 to-indigo-500/20",
-  },
-  {
     slug: "2026-portfolio",
     title: "2026 Portfolio",
     problem:
