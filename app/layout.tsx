@@ -39,23 +39,38 @@ export const metadata: Metadata = {
   title: "Vansh Sinha — Data Engineer & Full-Stack Developer",
   description:
     "Portfolio of Vansh Sinha, specializing in data engineering, cloud infrastructure, and full-stack development.",
-  generator: "v0.app",
   icons: {
     icon: [
       {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
+        url: "/favicon_io (1)/favicon-32x32.png",
+        sizes: "32x32",
+        type: "image/png",
       },
       {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
+        url: "/favicon_io (1)/favicon-16x16.png",
+        sizes: "16x16",
+        type: "image/png",
       },
       {
-        url: "/icon.svg",
-        type: "image/svg+xml",
+        url: "/favicon_io (1)/favicon.ico",
+        type: "image/x-icon",
       },
     ],
-    apple: "/apple-icon.png",
+    apple: "/favicon_io (1)/apple-touch-icon.png",
+    other: [
+      {
+        rel: "android-chrome",
+        url: "/favicon_io (1)/android-chrome-192x192.png",
+        sizes: "192x192",
+        type: "image/png",
+      },
+      {
+        rel: "android-chrome",
+        url: "/favicon_io (1)/android-chrome-512x512.png",
+        sizes: "512x512",
+        type: "image/png",
+      },
+    ],
   },
 }
 
@@ -69,6 +84,7 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://cdn.jsdelivr.net" />
         <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+        <link rel="manifest" href="/favicon_io (1)/site.webmanifest" />
       </head>
       <body className={`font-sans antialiased cursor-none ${favorit.variable}`}>
         <CustomCursor />
@@ -84,3 +100,5 @@ export default function RootLayout({
     </html>
   )
 }
+
+
