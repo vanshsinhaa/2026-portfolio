@@ -126,7 +126,7 @@ export default function HomePage() {
               }}
               className="mt-12 flex flex-wrap gap-4"
             >
-              <MagneticButton strength={0.3} range={100}>
+              <MagneticButton strength={0.25} range={30}>
                 <Button
                   asChild
                   size="lg"
@@ -141,7 +141,7 @@ export default function HomePage() {
                   </Link>
                 </Button>
               </MagneticButton>
-              <MagneticButton strength={0.35} range={100}>
+              <MagneticButton strength={0.25} range={30}>
                 <Button
                   asChild
                   variant="outline"
