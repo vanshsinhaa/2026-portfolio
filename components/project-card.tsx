@@ -84,7 +84,7 @@ export function ProjectCard({
     >
       <Link
         href={`/work/${project.slug}`}
-        className="group relative block overflow-hidden rounded-xl border border-[#3b0dd4]/20 bg-card transition-all hover:border-[#3b0dd4]/60 hover:shadow-2xl hover:shadow-[#3b0dd4]/20 hover:scale-[1.02]"
+        className="group relative flex flex-col overflow-hidden rounded-xl border border-[#3b0dd4]/20 bg-card transition-all hover:border-[#3b0dd4]/60 hover:shadow-2xl hover:shadow-[#3b0dd4]/20 hover:scale-[1.02] h-full"
       >
         {/* Project Image with Gradient Overlay */}
         {project.image && (
@@ -101,7 +101,7 @@ export function ProjectCard({
         )}
 
         {/* Content with glassmorphism */}
-        <div className="relative p-6 backdrop-blur-sm bg-background/80">
+        <div className="relative p-6 backdrop-blur-sm bg-background/80 flex-grow flex flex-col">
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1">
               <h3 className="text-xl md:text-2xl font-normal text-balance transition-colors group-hover:text-foreground">

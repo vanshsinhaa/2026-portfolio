@@ -8,7 +8,6 @@ import { projects } from "@/lib/projects-data"
 
 export default function WorkPage() {
   const [activeFilter, setActiveFilter] = useState("all")
-  const [activeSort, setActiveSort] = useState("featured")
 
   const filteredProjects = useMemo(() => {
     let filtered = [...projects]
@@ -18,20 +17,8 @@ export default function WorkPage() {
       filtered = filtered.filter((p) => p.category === activeFilter)
     }
 
-    // Apply sort
-    if (activeSort === "newest") {
-      filtered.sort((a, b) => b.year.localeCompare(a.year))
-    } else {
-      // Featured sort (default order with featured first)
-      filtered.sort((a, b) => {
-        if (a.featured && !b.featured) return -1
-        if (!a.featured && b.featured) return 1
-        return 0
-      })
-    }
-
     return filtered
-  }, [activeFilter, activeSort])
+  }, [activeFilter])
 
   return (
     <div className="container mx-auto max-w-6xl px-6 py-16">
@@ -46,8 +33,6 @@ export default function WorkPage() {
         <FilterBar
           activeFilter={activeFilter}
           onFilterChange={setActiveFilter}
-          activeSort={activeSort}
-          onSortChange={setActiveSort}
         />
       </div>
 
