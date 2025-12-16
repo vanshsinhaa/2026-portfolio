@@ -7,11 +7,15 @@ const nextConfig = {
     unoptimized: true,
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "media.tenor.com",
       },
     ],
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;

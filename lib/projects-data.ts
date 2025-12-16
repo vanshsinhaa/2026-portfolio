@@ -48,7 +48,7 @@ export const projects: Project[] = [
     problem:
       "Modern portfolio with cinematic animations and brand-first design",
     stack: ["Next.js", "Framer Motion", "TypeScript", "Tailwind"],
-    metric: "95+ Lighthouse",
+    metric: "98/100 Performance",
     featured: true,
     category: "full-stack",
     year: "2025",
@@ -59,9 +59,9 @@ export const projects: Project[] = [
     slug: "deepdive",
     title: "DeepDive — In Progress",
     problem:
-      "Full-stack monorepo with search, filtering, and production-ready deployment",
-    stack: ["Next.js", "FastAPI", "Docker", "Railway", "Python"],
-    metric: "Production-minded",
+      "AI-powered daily workspace aggregating tech content from 30+ sources with semantic search",
+    stack: ["Next.js", "FastAPI", "FAISS", "Redis", "Cloud Run"],
+    metric: "200+ items/day",
     featured: true,
     category: "full-stack",
     year: "2025",
@@ -212,9 +212,10 @@ export const caseStudies: Record<string, CaseStudy> = {
     timeline: "3 weeks",
     team: "Solo project",
     metrics: [
-      { label: "Lighthouse", value: "95+" },
-      { label: "Animations", value: "60fps" },
-      { label: "Custom Features", value: "10+" },
+      { label: "Performance", value: "98/100" },
+      { label: "Accessibility", value: "100/100" },
+      { label: "Best Practices", value: "96/100" },
+      { label: "SEO", value: "100/100" },
     ],
     overview:
       "Built a high-impact portfolio that showcases technical skills while emphasizing design craft. Every interaction, from the magnetic text effects to the parallax hero, demonstrates attention to detail and modern web capabilities.",
@@ -257,7 +258,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
     ],
     results:
-      "Created a portfolio that gets noticed. The site scores 95+ on Lighthouse while delivering smooth 60fps animations. Custom interactions make it memorable without sacrificing performance. The blue brand identity is consistent across every touchpoint.",
+      "Created a portfolio that gets noticed. The site delivers smooth animations and excellent performance scores. Custom interactions make it memorable without sacrificing speed. The blue brand identity is consistent across every touchpoint.",
     learnings:
       "Small details compound into big impressions. A custom cursor, thoughtful animations, and consistent color usage transform a standard portfolio into something memorable. Performance and aesthetics aren't trade-offs—with proper optimization, you can have both.",
     nextSteps:
@@ -265,23 +266,23 @@ export const caseStudies: Record<string, CaseStudy> = {
   },
   deepdive: {
     ...projects.find((p) => p.slug === "deepdive")!,
-    deck: "A production-minded, full-stack monorepo platform with Next.js frontend and FastAPI backend, built for fast search, reliable filtering, and maintainable deployment.",
-    role: "Full-Stack Engineer",
-    timeline: "In Progress",
+    deck: "A daily workspace for developers that aggregates papers, GitHub repos, Hacker News posts, Reddit threads, and tech news — then makes them searchable, organized, and useful with AI.",
+    role: "Full-Stack Engineer & Product Designer",
+    timeline: "6-7 days (v1.0)",
     team: "Solo Project",
     metrics: [
-      { label: "Monorepo Structure", value: "Clean Separation" },
-      { label: "Search Latency", value: "<200ms" },
-      { label: "Deployment", value: "Railway + Docker" },
+      { label: "Daily Ingestion", value: "200+ items" },
+      { label: "Data Sources", value: "30+ feeds" },
+      { label: "Search", value: "Semantic + AI" },
     ],
     overview:
-      "DeepDive is a full-stack web platform built to provide fast, consistent search and browsing experience over a curated dataset. The project emphasizes production-quality code, clean architecture, and operational excellence from day one.",
+      "DeepDive is my attempt at building a daily workspace for developers. Instead of juggling Twitter, Reddit, Hacker News, GitHub, and 10 different tabs, DeepDive brings it all into one place, powered by AI. It's not just aggregation—it's a smart, developer-first intelligence layer for the tech world. A single workspace where you can discover, track, and understand what's happening in tech, in real time.",
     problemDetails:
-      "Discovery and navigation across growing datasets becomes painful without consistent search, reliable filtering, a stable backend API, and proper deployment infrastructure. Most early-stage projects sacrifice production quality for speed, leading to technical debt and reliability issues.",
+      "Keeping up with tech is exhausting. Developers juggle multiple platforms—Twitter for announcements, Hacker News for discussions, Reddit for insights, GitHub for repos, RSS feeds for news. Each has its own interface, search limitations, and noise. There's no unified way to search across everything, track topics you care about, or get AI-powered summaries. You're either drowning in tabs or missing important updates.",
     approach:
-      "Built as a monorepo with clear frontend/backend separation. Next.js provides the user interface with responsive design and optimal UX states. FastAPI powers the backend with typed endpoints, validation, and structured JSON responses. Docker ensures environment consistency, while Railway handles deployment.",
+      "Built an ingestion pipeline that pulls 200+ items/day from Twitter (X), Reddit, Hacker News, and 30+ RSS feeds (TechCrunch, OpenAI blog, GCP, AWS, etc.). Content is cleaned, tagged, and embedded using sentence-transformers, then stored in a FAISS vector database. A multi-factor trending algorithm (popularity + recency + velocity + tags) surfaces what matters. Semantic search powered by embeddings lets users ask real questions, not just keyword match. Collections and watchlists enable personalized tracking.",
     architecture:
-      "Next.js Frontend (apps/frontend) → FastAPI Backend (apps/api) → Database. The frontend communicates with the backend via HTTP REST API. Vercel Analytics tracks usage patterns for data-driven product decisions. All configuration is environment-based with no secrets in the repository.",
+      "Next.js 14 + Tailwind + shadcn/ui frontend (Vercel) → FastAPI backend on Cloud Run (Python 3.11, SQLite + SQLAlchemy, FAISS for vectors) → Redis caching + rate limiting. Google OAuth + JWT for auth. Ingestion pipeline runs continuously, embedding content with sentence-transformers and indexing in FAISS. Structured logging tracks performance and errors.",
     architectureDiagrams: [
       {
         title: "High-Level Architecture",
@@ -301,42 +302,42 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         title: "Deployment Architecture",
         src: "/deepdive_prd/Next.js FastAPI Full Stack-2025-12-15-150808.svg",
-        alt: "Deployment architecture showing Docker and Railway setup",
+        alt: "Deployment architecture showing Docker and Google Cloud Run setup",
       },
     ],
     decisions: [
       {
-        title: "Monorepo Architecture",
+        title: "FAISS for Vector Search",
         content:
-          "Chose a monorepo structure for cohesive development and consistent CI/deploy flow. This allows sharing types between frontend and backend, unified linting, and coordinated deployments while maintaining clear boundaries.",
+          "Chose FAISS (Facebook AI Similarity Search) for semantic search over traditional databases. Embeddings from sentence-transformers enable 'ask real questions' search instead of keyword matching. Users can search by concept, not exact text matches.",
       },
       {
-        title: "Next.js for Frontend",
+        title: "Multi-Factor Trending Algorithm",
         content:
-          "Selected Next.js for its excellent performance patterns, built-in optimizations, and developer experience. Server components and app router provide optimal loading strategies while keeping the codebase maintainable.",
+          "Built a custom algorithm combining popularity, recency, velocity, and tags to surface what's actually trending in tech. Pure upvote counts miss emerging topics; pure recency buries important older content. The multi-factor approach balances both.",
       },
       {
-        title: "FastAPI for Backend",
+        title: "SQLite + SQLAlchemy",
         content:
-          "FastAPI offers automatic API documentation, request validation with Pydantic, and excellent async support. Type hints throughout the codebase catch errors early and make refactoring safer.",
+          "Started with SQLite for rapid iteration and zero infrastructure overhead. SQLAlchemy provides type-safe queries and easy migration to Postgres later if needed. Ship fast now, scale when necessary.",
       },
       {
-        title: "Docker + Railway Deployment",
+        title: "Google OAuth + JWT",
         content:
-          "Docker provides environment consistency across development and production. Railway simplifies deployment while maintaining control over infrastructure. This combination enables reliable, repeatable deploys.",
+          "Avoided building custom auth from scratch. Google OAuth provides trusted identity verification; JWT tokens enable stateless API authentication. Security and UX without reinventing the wheel.",
       },
       {
-        title: "Analytics-First Approach",
+        title: "Cloud Run for Serverless Scale",
         content:
-          "Integrated Vercel Analytics from the start to make product decisions based on real usage data rather than assumptions. Understanding user behavior drives feature prioritization.",
+          "Deployed on Google Cloud Run for automatic scaling and pay-per-request pricing. No need to provision servers or manage infrastructure. The ingestion pipeline runs continuously while the API scales to zero when idle.",
       },
     ],
     results:
-      "Built a production-ready platform with clean frontend/backend separation, fast search responses, and reliable deployment infrastructure. The codebase follows security best practices with environment-based configuration and no hardcoded secrets.",
+      "Launched DeepDive v1.0 after 6-7 days of heads-down building. The platform ingests 200+ new items daily from Twitter, Reddit, HN, and 30+ RSS feeds. Semantic search powered by sentence-transformers and FAISS enables concept-based queries. Users can create collections and watchlists to track topics they care about. Multi-factor trending surfaces what's actually hot in tech.",
     learnings:
-      "Starting with production quality doesn't slow you down—it prevents painful rewrites later. Clear API contracts between frontend and backend enable parallel development. Docker adds minimal overhead but eliminates 'works on my machine' issues.",
+      "Building for yourself first creates the best product motivation. Semantic search is a game-changer—keyword matching feels primitive once you've used embeddings. Starting with SQLite and FAISS keeps infrastructure simple while delivering powerful features. Ship v1 fast, iterate based on real usage.",
     nextSteps:
-      "Implement authentication and admin-only management features. Add advanced filtering with tags, categories, and facets. Improve search ranking algorithms. Set up monitoring and alerting for API errors and performance degradation.",
+      "Internship Hub: real-time feed of internship postings for students. AI-curated digests: daily/weekly tech briefings via email. Podcast + YouTube integration: add dev podcasts and channel updates alongside papers and repos. Collaboration features: share collections with friends or teammates. Mobile-first companion app: lightweight version for on-the-go discovery.",
   },
 };
 

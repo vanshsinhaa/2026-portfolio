@@ -197,6 +197,13 @@
     height: 0 !important;
     overflow: hidden !important;
   }
+
+  /* Pixelated images for retro 8-bit look */
+  .pixelated {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+  }
 }
 
 /* Enhanced typography for editorial feel */

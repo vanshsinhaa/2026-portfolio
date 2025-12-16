@@ -3,21 +3,30 @@
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { HoverImage } from "@/components/hover-image"
+import { EncryptedText } from "@/components/ui/encrypted-text"
 
 export default function AboutPage() {
-  const experience = [
+  const experience: Array<{
+    role: string;
+    company: string;
+    period: string;
+    description: string;
+    upcoming?: boolean;
+    mystery?: boolean;
+  }> = [
     {
       role: "Software Engineering Intern",
-      company: "American Express",
-      period: "May 2025 — Aug 2025",
+      company: "To Be Revealed",
+      period: "June 2026 — Aug 2026",
       description:
-        "Incoming Software Engineering Intern for Summer 2025.",
+        "Incoming Software Engineering Intern for Summer 2026.",
       upcoming: true,
+      mystery: true,
     },
     {
-      role: "Software Engineering Intern",
+      role: "Data Engineering Intern",
       company: "Wimoku",
-      period: "June 2025 — Present",
+      period: "June 2025 — Aug 2025",
       description:
         "Built metadata-driven BigQuery query rerun manager using Docker and Kubernetes. Orchestrated 500+ SQL queries daily for batch analytics. Created documentation detailing architecture, deployment strategies, and onboarding guides to accelerate new user adoption.",
     },
@@ -111,16 +120,21 @@ export default function AboutPage() {
                 <span className="text-sm text-muted-foreground">{job.period}</span>
               </div>
               <div className="mt-1 flex items-center gap-3">
-                {job.company === "American Express" && (
-                  <Image
-                    src="/American_Express-Logo.wine.svg"
-                    alt="American Express Logo"
-                    width={80}
-                    height={24}
-                    className="h-6 w-auto"
-                  />
+                {job.mystery && (
+                  <span className="text-2xl" style={{ lineHeight: 1 }}>👀</span>
                 )}
-                <p className="font-medium text-muted-foreground">{job.company}</p>
+                <p className="font-medium text-muted-foreground">
+                  {job.mystery ? (
+                    <EncryptedText
+                      text="To Be Revealed"
+                      revealDelayMs={100}
+                      encryptedClassName="text-muted-foreground/50"
+                      revealedClassName="text-muted-foreground"
+                    />
+                  ) : (
+                    job.company
+                  )}
+                </p>
               </div>
               <p className="mt-3 leading-relaxed text-muted-foreground">{job.description}</p>
             </div>
@@ -143,12 +157,12 @@ export default function AboutPage() {
               <span className="text-sm text-muted-foreground">Aug 2023 — Present</span>
             </div>
             <p className="mt-3 leading-relaxed text-muted-foreground">
-              Competed in coding competitions, placing in top 10% twice. Attended workshops on AI/ML, cloud, and algorithms.
+              Competed in coding competitions and attended DSA/ML/AI workshops.
             </p>
           </div>
           <div className="rounded-lg border border-border bg-card p-6">
             <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-              <h3 className="text-xl font-normal">AI Maker Space</h3>
+              <h3 className="text-xl font-normal">AI Society</h3>
               <span className="text-sm text-muted-foreground">Aug 2024 — Present</span>
             </div>
             <p className="mt-3 leading-relaxed text-muted-foreground">

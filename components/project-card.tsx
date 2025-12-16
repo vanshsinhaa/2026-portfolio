@@ -67,6 +67,7 @@ export function ProjectCard({
       ref={ref}
       initial={getInitialAnimation()}
       whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+      whileTap={{ scale: 0.98 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{
         duration: 0.6,
