@@ -7,7 +7,6 @@ import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { TimeThemeProvider } from "@/components/time-theme-provider";
-import { CustomCursor } from "@/components/custom-cursor";
 import { PageTransition } from "@/components/page-transition";
 
 const _geist = Geist({ subsets: ["latin"] });
@@ -94,8 +93,7 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
         <link rel="manifest" href="/favicon_io (1)/site.webmanifest" />
       </head>
-      <body className={`font-sans antialiased cursor-none ${favorit.variable} ${favoritExpanded.variable}`}>
-        <CustomCursor />
+      <body className={`font-sans antialiased ${favorit.variable} ${favoritExpanded.variable}`}>
         <TimeThemeProvider>
           <SiteHeader />
           <main className="min-h-screen">
