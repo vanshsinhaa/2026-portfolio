@@ -17,26 +17,26 @@ export function FilterBar({ activeFilter, onFilterChange }: FilterBarProps) {
   ]
 
   return (
-    <div className="flex flex-wrap gap-2">
-      {filters.map((filter) => (
-        <button
-          key={filter.value}
-          onClick={() => onFilterChange(filter.value)}
-          className={cn(
-            "relative rounded-md px-4 py-2 text-sm font-medium transition-colors",
-            activeFilter === filter.value ? "text-foreground" : "text-muted-foreground hover:text-foreground",
-          )}
-        >
-          {activeFilter === filter.value && (
-            <motion.div
-              layoutId="activeFilter"
-              className="absolute inset-0 rounded-md border border-border bg-muted"
-              transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-            />
-          )}
-          <span className="relative z-10">{filter.label}</span>
-        </button>
-      ))}
+      <div className="flex flex-wrap gap-2">
+        {filters.map((filter) => (
+          <button
+            key={filter.value}
+            onClick={() => onFilterChange(filter.value)}
+            className={cn(
+              "relative rounded-md px-4 py-2 text-sm font-medium transition-colors",
+              activeFilter === filter.value ? "text-foreground" : "text-muted-foreground hover:text-foreground",
+            )}
+          >
+            {activeFilter === filter.value && (
+              <motion.div
+                layoutId="activeFilter"
+                className="absolute inset-0 rounded-md border border-border bg-muted"
+                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+              />
+            )}
+            <span className="relative z-10">{filter.label}</span>
+          </button>
+        ))}
     </div>
   )
 }

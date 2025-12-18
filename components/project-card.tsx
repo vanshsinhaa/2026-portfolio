@@ -103,32 +103,32 @@ export function ProjectCard({
 
         {/* Content with glassmorphism */}
         <div className="relative p-6 backdrop-blur-sm bg-background/80 flex-grow flex flex-col">
-          <div className="flex items-start justify-between gap-4">
-            <div className="flex-1">
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex-1">
               <h3 className="text-xl md:text-2xl font-normal text-balance transition-colors group-hover:text-foreground">
-                {project.title}
-              </h3>
+              {project.title}
+            </h3>
               <p className="mt-2 text-sm md:text-base leading-relaxed text-muted-foreground text-pretty">
                 {project.problem}
               </p>
 
-              <div className="mt-4 flex flex-wrap gap-2">
-                {project.stack.slice(0, 4).map((tech) => (
+            <div className="mt-4 flex flex-wrap gap-2">
+              {project.stack.slice(0, 4).map((tech) => (
                   <span
                     key={tech}
                     className="rounded-full bg-muted/50 backdrop-blur-sm px-3 py-1 text-xs font-medium text-foreground border border-border/40"
                   >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              {project.metric && (
-                <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-[#3b0dd4]/30 bg-[#3b0dd4]/10 backdrop-blur-sm px-4 py-1.5 text-xs font-medium text-[#3b0dd4] group-hover:border-[#3b0dd4]/50 group-hover:bg-[#3b0dd4]/20 transition-colors">
-                  {project.metric}
-                </div>
-              )}
+                  {tech}
+                </span>
+              ))}
             </div>
+
+            {project.metric && (
+                <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-[#3b0dd4]/30 bg-[#3b0dd4]/10 backdrop-blur-sm px-4 py-1.5 text-xs font-medium text-[#3b0dd4] group-hover:border-[#3b0dd4]/50 group-hover:bg-[#3b0dd4]/20 transition-colors">
+                {project.metric}
+              </div>
+            )}
+          </div>
 
             <ArrowUpRight className="h-5 w-5 text-muted-foreground transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-[#3b0dd4]" />
           </div>

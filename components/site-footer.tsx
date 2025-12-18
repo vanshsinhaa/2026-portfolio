@@ -58,14 +58,14 @@ export function SiteFooter() {
               <p className="text-xs text-white/50 uppercase tracking-widest">Navigation</p>
               <nav className="flex flex-col gap-3">
                 {navLinks.map((link) => (
-                  <Link
+              <Link
                     key={link.href}
                     href={link.href}
                     className="text-white/80 hover:text-white transition-colors font-favorit text-lg group flex items-center"
-                  >
+              >
                     {link.label}
                     <ArrowUpRight className="inline-block ml-1 h-3 w-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
-                  </Link>
+              </Link>
                 ))}
               </nav>
             </div>
@@ -78,10 +78,10 @@ export function SiteFooter() {
                   <a
                     key={link.href}
                     href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                target="_blank"
+                rel="noopener noreferrer"
                     className="text-white/80 hover:text-white transition-colors font-favorit text-lg group flex items-center"
-                  >
+              >
                     {link.label}
                     <ArrowUpRight className="inline-block ml-1 h-3 w-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
                   </a>
@@ -103,8 +103,8 @@ export function SiteFooter() {
             {/* First VANSH - Larger, slightly transparent, actually overflows */}
             <div className="font-favorit font-normal text-[32vw] md:text-[26vw] lg:text-[22vw] leading-[0.8] tracking-tighter text-white/30 whitespace-nowrap -ml-[2vw]">
               VANSH SINHA
-            </div>
-            
+          </div>
+
             {/* Second VANSH - Offset, full opacity, also overflows */}
             <div className="font-favorit font-normal text-[32vw] md:text-[26vw] lg:text-[22vw] leading-[0.8] tracking-tighter text-white whitespace-nowrap -mt-[14vw] md:-mt-[12vw] lg:-mt-[10vw] ml-[1vw]">
               VANSH SINHA
@@ -122,7 +122,7 @@ export function SiteFooter() {
         >
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-xs text-white/60">
             <div className="flex flex-col md:flex-row gap-2 md:gap-6">
-              <p>© 2025 Vansh Sinha</p>
+            <p>© 2025 Vansh Sinha</p>
               <span className="hidden md:block text-white/30">•</span>
               <p>Computer Science @ Arizona State University</p>
             </div>

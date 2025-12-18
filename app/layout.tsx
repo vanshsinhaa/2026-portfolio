@@ -35,6 +35,14 @@ export const favorit = localFont({
   variable: "--font-favorit",
 });
 
+// ABC Favorit Expanded Bold for nav links
+export const favoritExpanded = localFont({
+  src: "../public/favorit-font-family-1765765530-0/ABCFavoritExpanded-Bold-Trial.otf",
+  weight: "700",
+  style: "normal",
+  variable: "--font-favorit-expanded",
+});
+
 export const metadata: Metadata = {
   title: "Vansh Sinha — Data Engineer & Full-Stack Developer",
   description:
@@ -86,7 +94,7 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
         <link rel="manifest" href="/favicon_io (1)/site.webmanifest" />
       </head>
-      <body className={`font-sans antialiased cursor-none ${favorit.variable}`}>
+      <body className={`font-sans antialiased cursor-none ${favorit.variable} ${favoritExpanded.variable}`}>
         <CustomCursor />
         <TimeThemeProvider>
           <SiteHeader />

@@ -37,3 +37,4 @@ Place these SVG files in this folder:
 
 Edit `/components/tech-carousel.tsx` and modify the `technologies` array.
 
+

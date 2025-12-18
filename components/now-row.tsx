@@ -35,10 +35,10 @@ export function NowRow() {
         <span className="text-white/90">Data pipelines at scale</span>
       </div>
       <span className="text-white/30">•</span>
-          <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2">
             <span className="text-xs uppercase tracking-wider font-medium">Location</span>
             <span className="text-white/90">Tempe, AZ</span>
-          </div>
+      </div>
     </div>
   )
 }

@@ -11,6 +11,7 @@ export function SiteHeader() {
   const [isOverLight, setIsOverLight] = useState(false)
   const [isOverFooter, setIsOverFooter] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [showBurger, setShowBurger] = useState(true)
 
   const links = [
     { href: "/", label: "Home" },
@@ -33,9 +34,12 @@ export function SiteHeader() {
       if (pathname === "/") {
         const heroHeight = window.innerHeight
         setIsOverLight(scrollPosition > heroHeight * 0.8 && !isNearFooter)
+        // Hide burger in hero section (first 200px), show it after scrolling
+        setShowBurger(scrollPosition > 200)
       } else {
         // On other pages (work, about, contact), always use dark blue on light background unless over footer
         setIsOverLight(!isNearFooter)
+        setShowBurger(true)
       }
     }
 
@@ -60,11 +64,15 @@ export function SiteHeader() {
 
   return (
     <>
-      {/* Burger Menu Button */}
-      <button
+      {/* Burger Menu Button - Hidden in hero section on homepage */}
+      <motion.button
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         className="fixed top-8 right-8 z-[60] flex flex-col justify-center gap-1.5 w-8 h-8 group"
         aria-label="Toggle menu"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: showBurger ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
+        style={{ pointerEvents: showBurger ? "auto" : "none" }}
       >
         <span
           className={cn(
@@ -88,7 +96,7 @@ export function SiteHeader() {
             isOverLight && !isOverFooter ? "bg-[#3b0dd4]" : "bg-white"
           )}
         />
-      </button>
+      </motion.button>
 
       {/* Vertical Sidebar Menu */}
       <AnimatePresence>
