@@ -8,6 +8,8 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { TimeThemeProvider } from "@/components/time-theme-provider";
 import { PageTransition } from "@/components/page-transition";
+import { SmoothCursor } from "@/components/ui/smooth-cursor";
+import { BottomNav } from "@/components/bottom-nav";
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
@@ -96,7 +98,9 @@ export default function RootLayout({
       <body className={`font-sans antialiased ${favorit.variable} ${favoritExpanded.variable}`}>
         <TimeThemeProvider>
           <SiteHeader />
-          <main className="min-h-screen">
+          <SmoothCursor />
+          <BottomNav />
+          <main className="min-h-screen pb-24">
             <PageTransition>{children}</PageTransition>
           </main>
           <SiteFooter />

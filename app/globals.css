@@ -143,9 +143,24 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    cursor: none !important;
   }
+  
+  /* Keep text cursor for inputs */
+  input,
+  textarea,
+  select {
+    cursor: text !important;
+  }
+  
   body {
     @apply bg-background text-foreground;
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+  html {
+    overflow-x: hidden;
+    max-width: 100vw;
   }
   .font-favorit {
     font-family: var(--font-favorit);

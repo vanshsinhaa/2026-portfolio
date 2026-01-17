@@ -7,7 +7,6 @@ import { UnicornScene } from "@/components/unicorn-scene";
 import { MagneticText } from "@/components/ui/magnetic-text";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { CinematicTransition } from "@/components/cinematic-transition";
-import { HeroNavLinks } from "@/components/hero-nav-links";
 import { projects } from "@/lib/projects-data";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
@@ -37,9 +36,6 @@ export default function HomePage() {
         className="relative overflow-hidden border-b border-border/40 min-h-screen flex items-center bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700"
         style={{ overflow: "hidden" }}
       >
-        {/* Hero Navigation Links (fade out on scroll) */}
-        <HeroNavLinks />
-
         {/* Fallback gradient (shows while Unicorn loads) - with parallax */}
         <motion.div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -267,7 +263,7 @@ export default function HomePage() {
                 <p className="mt-4 text-muted-foreground max-w-md">
                   I'm working on technical articles about data engineering,
                   cloud infrastructure, and building scalable systems. Check
-                  back soon!
+                  back soon.
                 </p>
               </div>
             </div>
