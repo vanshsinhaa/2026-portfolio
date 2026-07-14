@@ -22,8 +22,18 @@ export default function WorkPage() {
 
   return (
     <div className="container mx-auto max-w-6xl px-6 py-16">
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-        <h1 className="font-favorit text-5xl font-normal tracking-tight md:text-6xl">Work</h1>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <div className="flex items-center gap-3">
+          <span className="h-px w-10 bg-[#3b0dd4]" />
+          <span className="text-xs font-medium uppercase tracking-[0.3em] text-[#3b0dd4]">
+            Selected Work — 2026
+          </span>
+        </div>
+        <h1 className="mt-5 font-favorit text-5xl font-normal tracking-tight md:text-6xl">Work</h1>
         <p className="mt-4 text-xl text-muted-foreground">
           Projects spanning data engineering, infrastructure, and full-stack development
         </p>
@@ -36,7 +46,7 @@ export default function WorkPage() {
         />
       </div>
 
-      <motion.div layout className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <motion.div layout className="mt-8 grid gap-6 md:grid-cols-2">
         {filteredProjects.map((project, index) => (
           <ProjectCard key={project.slug} project={project} index={index} />
         ))}

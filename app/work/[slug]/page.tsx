@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/accordion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { noiseTexture } from "@/lib/utils";
 
 export function generateStaticParams() {
   return projects.map((project) => ({
@@ -60,7 +61,24 @@ export default async function CaseStudyPage({
             <span>{caseStudy.title}</span>
           </div>
 
-          <h1 className="mt-6 text-5xl font-normal tracking-tight md:text-6xl lg:text-7xl">
+          {/* Gradient identity band — pure CSS, matches the project card */}
+          <div
+            className="relative mt-8 h-40 overflow-hidden rounded-2xl border border-border/60 md:h-56"
+            style={{ background: caseStudy.gradient }}
+          >
+            <div
+              className="pointer-events-none absolute inset-0 opacity-25 mix-blend-overlay"
+              style={{ backgroundImage: noiseTexture }}
+            />
+            <span className="absolute left-5 top-5 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] font-medium tracking-wide text-white/90 backdrop-blur-sm">
+              Case Study
+            </span>
+            <span className="absolute right-5 top-5 font-mono text-xs text-white/60">
+              {caseStudy.year}
+            </span>
+          </div>
+
+          <h1 className="mt-8 text-5xl font-normal tracking-tight md:text-6xl lg:text-7xl">
             {caseStudy.title}
           </h1>
           <p className="mt-6 text-xl text-muted-foreground leading-relaxed">

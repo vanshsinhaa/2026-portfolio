@@ -13,7 +13,6 @@ export function FilterBar({ activeFilter, onFilterChange }: FilterBarProps) {
     { value: "all", label: "All" },
     { value: "data-engineering", label: "Data Engineering" },
     { value: "full-stack", label: "Full Stack" },
-    { value: "infrastructure", label: "Infrastructure" },
   ]
 
   return (

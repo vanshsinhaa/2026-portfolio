@@ -8,6 +8,7 @@ export function SiteFooter() {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/work", label: "Work" },
+    { href: "/blog", label: "Blog" },
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
   ]
@@ -122,7 +123,7 @@ export function SiteFooter() {
         >
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-xs text-white/60">
             <div className="flex flex-col md:flex-row gap-2 md:gap-6">
-            <p>© 2025 Vansh Sinha</p>
+            <p>© 2026 Vansh Sinha</p>
               <span className="hidden md:block text-white/30">•</span>
               <p>Computer Science @ Arizona State University</p>
             </div>

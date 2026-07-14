@@ -6,14 +6,63 @@ import { ProjectCard } from "@/components/project-card";
 import { UnicornScene } from "@/components/unicorn-scene";
 import { MagneticText } from "@/components/ui/magnetic-text";
 import { MagneticButton } from "@/components/ui/magnetic-button";
-import { CinematicTransition } from "@/components/cinematic-transition";
+import { BlogCard } from "@/components/blog-card";
 import { projects } from "@/lib/projects-data";
+import { blogPosts } from "@/lib/blog-data";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { TechCarousel } from "@/components/tech-carousel";
-import Image from "next/image";
 import { useRef } from "react";
+
+const ease = [0.22, 1, 0.36, 1] as const;
+
+function SectionHeader({
+  overline,
+  title,
+  description,
+  cta,
+}: {
+  overline: string;
+  title: string;
+  description: string;
+  cta?: { href: string; label: string };
+}) {
+  return (
+    <div className="flex items-end justify-between gap-6">
+      <div>
+        <div className="flex items-center gap-3">
+          <motion.span
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease }}
+            className="h-px w-10 origin-left bg-[#3b0dd4]"
+          />
+          <span className="text-xs font-medium uppercase tracking-[0.3em] text-[#3b0dd4]">
+            {overline}
+          </span>
+        </div>
+        <h2 className="mt-5 font-favorit text-4xl font-normal tracking-tight md:text-5xl lg:text-6xl">
+          {title}
+        </h2>
+        <p className="mt-3 text-lg text-muted-foreground">{description}</p>
+      </div>
+      {cta && (
+        <Button
+          asChild
+          variant="ghost"
+          className="hidden shrink-0 hover:text-[#3b0dd4] transition-colors md:flex"
+        >
+          <Link href={cta.href}>
+            {cta.label}
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Link>
+        </Button>
+      )}
+    </div>
+  );
+}
 
 export default function HomePage() {
   const featuredProjects = projects.filter((p) => p.featured);
@@ -36,11 +85,12 @@ export default function HomePage() {
         className="relative overflow-hidden border-b border-border/40 min-h-screen flex items-center bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700"
         style={{ overflow: "hidden" }}
       >
-        {/* Fallback gradient (shows while Unicorn loads) - with parallax */}
+        {/* Fallback gradient (shows while Unicorn loads) — pure CSS, with parallax */}
         <motion.div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0"
           style={{
-            backgroundImage: "url(/image-mesh-gradient.png)",
+            background:
+              "radial-gradient(120% 90% at 20% 20%, rgba(139, 92, 246, 0.9) 0%, rgba(139, 92, 246, 0) 55%), radial-gradient(90% 80% at 85% 15%, rgba(59, 130, 246, 0.8) 0%, rgba(59, 130, 246, 0) 55%), radial-gradient(110% 110% at 70% 90%, rgba(59, 13, 212, 0.95) 0%, rgba(59, 13, 212, 0) 65%), linear-gradient(135deg, #1e0b3d 0%, #12104a 100%)",
             y,
           }}
         />
@@ -74,11 +124,7 @@ export default function HomePage() {
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.8,
-                ease: [0.16, 1, 0.3, 1],
-                delay: 0.1,
-              }}
+              transition={{ duration: 0.8, ease, delay: 0.1 }}
               className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-[#3b0dd4]/30 bg-[#3b0dd4]/10 backdrop-blur-sm"
             >
               <div className="h-2 w-2 rounded-full bg-white animate-pulse shadow-lg shadow-white/80" />
@@ -91,11 +137,7 @@ export default function HomePage() {
             <motion.div
               initial={{ opacity: 0, x: -60 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{
-                duration: 1,
-                ease: [0.16, 1, 0.3, 1],
-                delay: 0.3,
-              }}
+              transition={{ duration: 1, ease, delay: 0.3 }}
               className="mb-8"
             >
               <MagneticText
@@ -111,11 +153,7 @@ export default function HomePage() {
             <motion.p
               initial={{ opacity: 0, x: 60 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{
-                duration: 0.8,
-                ease: [0.16, 1, 0.3, 1],
-                delay: 0.6,
-              }}
+              transition={{ duration: 0.8, ease, delay: 0.6 }}
               className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/70 font-light max-w-3xl leading-relaxed"
             >
               Data engineer & full-stack developer building scalable systems
@@ -126,11 +164,7 @@ export default function HomePage() {
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.7,
-                ease: [0.16, 1, 0.3, 1],
-                delay: 0.9,
-              }}
+              transition={{ duration: 0.7, ease, delay: 0.9 }}
               className="mt-12 flex flex-wrap gap-4"
             >
               <MagneticButton strength={0.25} range={30}>
@@ -165,11 +199,7 @@ export default function HomePage() {
               className="mt-16"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.8,
-                ease: [0.16, 1, 0.3, 1],
-                delay: 1.2,
-              }}
+              transition={{ duration: 0.8, ease, delay: 1.2 }}
             >
               <NowRow />
             </motion.div>
@@ -177,11 +207,8 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* Cinematic Transition */}
-      <CinematicTransition />
-
-      {/* Featured Work */}
-      <section className="border-b border-border/40 py-16 sm:py-24 bg-background">
+      {/* Selected Work */}
+      <section className="border-b border-border/40 py-20 sm:py-28 bg-background">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0 }}
@@ -189,35 +216,19 @@ export default function HomePage() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <div className="flex items-end justify-between">
-              <div>
-                <h2 className="font-favorit text-4xl font-normal tracking-tight md:text-5xl lg:text-6xl">
-                  Featured Work
-                </h2>
-                <p className="mt-3 text-lg text-muted-foreground">
-                  Selected projects from data engineering to full-stack
-                </p>
-              </div>
-              <Button
-                asChild
-                variant="ghost"
-                className="hidden md:flex hover:text-[#3b0dd4] transition-colors"
-              >
-                <Link href="/work">
-                  View all
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
+            <SectionHeader
+              overline={`${String(featuredProjects.length).padStart(2, "0")} Projects — 2026`}
+              title="Selected Work"
+              description="From data pipelines at scale to brand-first product design"
+              cta={{ href: "/work", label: "View all" }}
+            />
 
-            {/* Bento Grid Layout */}
             <div className="mt-12 grid gap-6 md:grid-cols-2">
               {featuredProjects.map((project, index) => (
                 <ProjectCard
                   key={project.slug}
                   project={project}
                   index={index}
-                  size={index === 0 ? "large" : "default"}
                 />
               ))}
             </div>
@@ -226,7 +237,7 @@ export default function HomePage() {
       </section>
 
       {/* Writing */}
-      <section className="border-b border-border/40 py-16 sm:py-24">
+      <section className="border-b border-border/40 py-20 sm:py-28">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0 }}
@@ -234,45 +245,22 @@ export default function HomePage() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="font-favorit text-4xl font-normal tracking-tight md:text-5xl lg:text-6xl">
-              Writing
-            </h2>
-            <p className="mt-3 text-lg text-muted-foreground">
-              Technical notes on data engineering and infrastructure
-            </p>
+            <SectionHeader
+              overline="From the Blog"
+              title="Writing"
+              description="Notes on retrieval, memory, and building with AI"
+              cta={{ href: "/blog", label: "All writing" }}
+            />
 
-            <div className="mt-12 flex items-center justify-center">
-              <div className="rounded-lg border border-border bg-muted/30 px-12 py-16 text-center">
-                <div className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm font-medium text-muted-foreground">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <circle cx="12" cy="12" r="10" />
-                    <polyline points="12 6 12 12 16 14" />
-                  </svg>
-                  Coming Soon
-                </div>
-                <p className="mt-4 text-muted-foreground max-w-md">
-                  I'm working on technical articles about data engineering,
-                  cloud infrastructure, and building scalable systems. Check
-                  back soon.
-                </p>
-              </div>
+            <div className="mt-12">
+              <BlogCard post={blogPosts[0]} />
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* Technologies */}
-      <section className="border-b border-border/40 py-16 sm:py-24">
+      <section className="border-b border-border/40 py-20 sm:py-28">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0 }}
@@ -280,12 +268,11 @@ export default function HomePage() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="font-favorit text-4xl font-normal tracking-tight md:text-5xl lg:text-6xl">
-              Technologies
-            </h2>
-            <p className="mt-3 text-lg text-muted-foreground">
-              Tools and frameworks I work with
-            </p>
+            <SectionHeader
+              overline="Toolbox"
+              title="Technologies"
+              description="Tools and frameworks I work with"
+            />
 
             <div className="mt-12">
               <TechCarousel />
