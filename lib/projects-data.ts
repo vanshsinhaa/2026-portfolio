@@ -7,8 +7,10 @@ export interface Project {
   featured?: boolean;
   category: "data-engineering" | "full-stack" | "infrastructure";
   year: string;
-  image?: string;
-  gradient?: string;
+  /** CSS background for the card cover — layered radial gradients, no images to load */
+  gradient: string;
+  /** Accent color used for hover glows and shadows */
+  glow: string;
 }
 
 export interface CaseStudy extends Project {
@@ -39,34 +41,23 @@ export const projects: Project[] = [
     featured: true,
     category: "data-engineering",
     year: "2025",
-    image: "/image-mesh-gradient (1).png",
-    gradient: "from-blue-600/20 via-indigo-500/20 to-purple-600/20",
+    gradient:
+      "radial-gradient(120% 90% at 15% 20%, rgba(59, 13, 212, 0.95) 0%, rgba(59, 13, 212, 0) 55%), radial-gradient(90% 80% at 85% 12%, rgba(34, 211, 238, 0.7) 0%, rgba(34, 211, 238, 0) 55%), radial-gradient(100% 100% at 78% 88%, rgba(99, 102, 241, 0.85) 0%, rgba(99, 102, 241, 0) 60%), radial-gradient(70% 70% at 28% 92%, rgba(14, 165, 233, 0.55) 0%, rgba(14, 165, 233, 0) 60%), linear-gradient(135deg, #07071d 0%, #12104a 100%)",
+    glow: "rgba(79, 70, 229, 0.35)",
   },
   {
     slug: "2026-portfolio",
     title: "2026 Portfolio",
     problem:
-      "Modern portfolio with cinematic animations and brand-first design",
+      "Modern portfolio with fluid page transitions and brand-first design",
     stack: ["Next.js", "Framer Motion", "TypeScript", "Tailwind"],
     metric: "98/100 Performance",
     featured: true,
     category: "full-stack",
-    year: "2025",
-    image: "/image-mesh-gradient.png",
-    gradient: "from-violet-500/20 via-purple-500/20 to-fuchsia-500/20",
-  },
-  {
-    slug: "deepdive",
-    title: "DeepDive — In Progress",
-    problem:
-      "AI-powered daily workspace aggregating tech content from 30+ sources with semantic search",
-    stack: ["Next.js", "FastAPI", "FAISS", "Redis", "Cloud Run"],
-    metric: "200+ items/day",
-    featured: true,
-    category: "full-stack",
-    year: "2025",
-    image: "/image-mesh-gradient (2).png",
-    gradient: "from-emerald-500/20 via-teal-500/20 to-cyan-500/20",
+    year: "2026",
+    gradient:
+      "radial-gradient(110% 90% at 18% 22%, rgba(139, 92, 246, 0.9) 0%, rgba(139, 92, 246, 0) 55%), radial-gradient(90% 80% at 85% 15%, rgba(236, 72, 153, 0.6) 0%, rgba(236, 72, 153, 0) 55%), radial-gradient(110% 110% at 72% 90%, rgba(59, 13, 212, 0.9) 0%, rgba(59, 13, 212, 0) 62%), linear-gradient(135deg, #120724 0%, #1e0b3d 100%)",
+    glow: "rgba(139, 92, 246, 0.35)",
   },
 ];
 
@@ -119,95 +110,9 @@ export const caseStudies: Record<string, CaseStudy> = {
     nextSteps:
       "Add Slack alerting on failures, implement retry policies per query, enable parallel execution for large query groups, build a simple UI dashboard for execution history, and integrate with Airflow for complex DAG dependencies.",
   },
-  "pubsub-to-bigquery": {
-    ...projects[0],
-    deck: "Building a resilient real-time event pipeline to handle millions of daily events with sub-second latency.",
-    role: "Lead Data Engineer",
-    timeline: "3 months",
-    team: "2 engineers, 1 PM",
-    metrics: [
-      { label: "Events/day", value: "10M+" },
-      { label: "Latency", value: "<500ms" },
-      { label: "Cost reduction", value: "40%" },
-    ],
-    overview:
-      "Designed and implemented a real-time event streaming pipeline from Google Cloud Pub/Sub to BigQuery, processing over 10 million events daily with sub-second latency.",
-    problemDetails:
-      "The existing batch processing system had a 4-hour delay and couldn't scale to handle peak traffic. Analytics teams needed real-time insights for operational decisions.",
-    approach:
-      "Implemented a streaming architecture using Cloud Functions to consume Pub/Sub messages, transform data, and batch-write to BigQuery. Added dead-letter queues and retry logic for resilience.",
-    architecture:
-      "Event producers → Pub/Sub topics → Cloud Functions (processing layer) → BigQuery streaming inserts → Dashboard queries",
-    decisions: [
-      {
-        title: "Why Cloud Functions over Dataflow?",
-        content:
-          "Cloud Functions provided simpler deployment, lower cost at our scale, and easier debugging. Dataflow would be overkill for our transformation logic.",
-      },
-      {
-        title: "Batch insertion strategy",
-        content:
-          "Implemented micro-batching (100 events per insert) to balance latency and BigQuery streaming quota costs.",
-      },
-      {
-        title: "Error handling approach",
-        content:
-          "Used dead-letter topics for failed events, with automated alerts and a retry mechanism that exponentially backs off.",
-      },
-    ],
-    results:
-      "Reduced data latency from 4 hours to under 500ms. Cut infrastructure costs by 40% compared to the previous system. Enabled 3 new real-time dashboards for operations.",
-    learnings:
-      "Stream processing requires different thinking than batch. Observability is crucial—we added extensive logging and monitoring early. Start simple and optimize based on actual traffic patterns.",
-    nextSteps:
-      "Add schema validation layer, implement data quality checks, and explore using BigQuery Storage Write API for even better performance.",
-  },
-  "k8s-query-runner": {
-    ...projects[1],
-    deck: "A Kubernetes-native job orchestration system for running scheduled BigQuery analytics at scale.",
-    role: "Infrastructure Engineer",
-    timeline: "4 months",
-    team: "3 engineers",
-    metrics: [
-      { label: "Uptime", value: "99.9%" },
-      { label: "Jobs/day", value: "500+" },
-      { label: "Cost savings", value: "35%" },
-    ],
-    overview:
-      "Built a robust Kubernetes-based system to schedule and execute BigQuery queries, replacing a fragile cron-based solution with proper orchestration, monitoring, and error handling.",
-    problemDetails:
-      "Legacy cron jobs were running on a single VM with no failover, no proper monitoring, and manual intervention required for failures. Scaling was difficult and costly.",
-    approach:
-      "Containerized query runners and deployed them to GKE using CronJobs. Implemented a controller pattern for job lifecycle management with automatic retries and alerting.",
-    architecture:
-      "Kubernetes CronJobs → Query Runner Pods → BigQuery API → Result storage (GCS) → Notification system",
-    decisions: [
-      {
-        title: "Kubernetes over managed solutions",
-        content:
-          "Chose Kubernetes for flexibility and control over job execution. Managed solutions like Cloud Scheduler + Cloud Run couldn't handle our complex dependencies.",
-      },
-      {
-        title: "Container optimization",
-        content:
-          "Used multi-stage Docker builds and cached dependencies to reduce image size from 1.2GB to 180MB, speeding up pod startup times.",
-      },
-      {
-        title: "Monitoring strategy",
-        content:
-          "Integrated Prometheus for metrics and Grafana for visualization. Set up PagerDuty alerts for critical job failures.",
-      },
-    ],
-    results:
-      "Achieved 99.9% uptime with automatic failover. Reduced infrastructure costs by 35% through better resource utilization. Decreased manual intervention by 90%.",
-    learnings:
-      "Kubernetes adds complexity but pays off at scale. Invest in observability from day one. Make jobs idempotent—retries will happen.",
-    nextSteps:
-      "Add dynamic resource allocation based on query complexity, implement job priority queues, and explore using Argo Workflows for complex DAGs.",
-  },
   "2026-portfolio": {
     ...projects.find((p) => p.slug === "2026-portfolio")!,
-    deck: "A modern, brand-first portfolio featuring cinematic animations, custom cursor interactions, and a bold blue identity.",
+    deck: "A modern, brand-first portfolio featuring fluid page transitions, gradient-driven visuals, and a bold blue identity.",
     role: "Full-Stack Developer & Designer",
     timeline: "3 weeks",
     team: "Solo project",
@@ -218,13 +123,13 @@ export const caseStudies: Record<string, CaseStudy> = {
       { label: "SEO", value: "100/100" },
     ],
     overview:
-      "Built a high-impact portfolio that showcases technical skills while emphasizing design craft. Every interaction, from the magnetic text effects to the parallax hero, demonstrates attention to detail and modern web capabilities.",
+      "Built a high-impact portfolio that showcases technical skills while emphasizing design craft. Every interaction, from the magnetic text effects to the fluid page transitions, demonstrates attention to detail and modern web capabilities.",
     problemDetails:
       "Standard developer portfolios often look generic or overly technical. Needed a site that would stand out visually while maintaining credibility as a data engineer and full-stack developer. The challenge was balancing personality with professionalism.",
     approach:
       "Started with brand identity—chose a bold blue as the signature color that would carry throughout the experience. Built the site iteratively, adding layers of polish with each pass. Focused on interactions that feel natural and purposeful, not flashy for the sake of it.",
     architecture:
-      "Modern React-based stack with static generation for optimal performance. Animation library handles smooth transitions with spring physics. Custom cursor implementation for unique identity. Deployed with edge functions and analytics.",
+      "Modern React-based stack with static generation for optimal performance. Animation library handles smooth transitions with spring physics. Gradient covers are generated entirely in CSS so nothing waits on image downloads. Deployed with edge functions and analytics.",
     decisions: [
       {
         title: "Brand-First Design",
@@ -232,19 +137,19 @@ export const caseStudies: Record<string, CaseStudy> = {
           "Chose a signature color and applied it consistently across every touchpoint—buttons, hover states, selections, and accents. This creates a cohesive identity that's memorable and professional.",
       },
       {
-        title: "Custom Cursor",
+        title: "Fluid Page Transitions",
         content:
-          "Replaced the default pointer with a custom design that reinforces the brand. This small detail makes the entire experience feel more polished and intentional.",
+          "Routes cross-fade with subtle motion instead of hard cuts, so moving through the site feels continuous. Exit and enter states are choreographed with the same easing curve for a natural, app-like flow.",
+      },
+      {
+        title: "CSS Gradients over Images",
+        content:
+          "Replaced photographic card covers with layered CSS gradients and an inline grain texture. Cards render instantly with zero network requests, and each project gets its own generated palette.",
       },
       {
         title: "Interactive Elements",
         content:
           "Added subtle hover effects to buttons and cards that make the site feel alive without being distracting. Each interaction uses physics-based motion for a natural feel.",
-      },
-      {
-        title: "Layered Depth",
-        content:
-          "Implemented depth effects throughout—the hero section creates a sense of space, and transitions between sections feel cinematic rather than abrupt.",
       },
       {
         title: "Mobile-First Navigation",
@@ -258,106 +163,10 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
     ],
     results:
-      "Created a portfolio that gets noticed. The site delivers smooth animations and excellent performance scores. Custom interactions make it memorable without sacrificing speed. The blue brand identity is consistent across every touchpoint.",
+      "Created a portfolio that gets noticed. The site delivers smooth animations and excellent performance scores. Instant-loading gradient covers make it memorable without sacrificing speed. The blue brand identity is consistent across every touchpoint.",
     learnings:
-      "Small details compound into big impressions. A custom cursor, thoughtful animations, and consistent color usage transform a standard portfolio into something memorable. Performance and aesthetics aren't trade-offs—with proper optimization, you can have both.",
+      "Small details compound into big impressions. Fluid transitions, thoughtful animations, and consistent color usage transform a standard portfolio into something memorable. Performance and aesthetics aren't trade-offs—with proper optimization, you can have both.",
     nextSteps:
-      "Add blog integration with MDX for technical writing. Implement view transitions API when it's more widely supported. Create more case studies with interactive demos. Consider adding a 'uses' page showing tools and setup.",
-  },
-  deepdive: {
-    ...projects.find((p) => p.slug === "deepdive")!,
-    deck: "A daily workspace for developers that aggregates papers, GitHub repos, Hacker News posts, Reddit threads, and tech news — then makes them searchable, organized, and useful with AI.",
-    role: "Full-Stack Engineer & Product Designer",
-    timeline: "6-7 days (v1.0)",
-    team: "Solo Project",
-    metrics: [
-      { label: "Daily Ingestion", value: "200+ items" },
-      { label: "Data Sources", value: "30+ feeds" },
-      { label: "Search", value: "Semantic + AI" },
-    ],
-    overview:
-      "DeepDive is my attempt at building a daily workspace for developers. Instead of juggling Twitter, Reddit, Hacker News, GitHub, and 10 different tabs, DeepDive brings it all into one place, powered by AI. It's not just aggregation—it's a smart, developer-first intelligence layer for the tech world. A single workspace where you can discover, track, and understand what's happening in tech, in real time.",
-    problemDetails:
-      "Keeping up with tech is exhausting. Developers juggle multiple platforms—Twitter for announcements, Hacker News for discussions, Reddit for insights, GitHub for repos, RSS feeds for news. Each has its own interface, search limitations, and noise. There's no unified way to search across everything, track topics you care about, or get AI-powered summaries. You're either drowning in tabs or missing important updates.",
-    approach:
-      "Built an ingestion pipeline that pulls 200+ items/day from Twitter (X), Reddit, Hacker News, and 30+ RSS feeds (TechCrunch, OpenAI blog, GCP, AWS, etc.). Content is cleaned, tagged, and embedded using sentence-transformers, then stored in a FAISS vector database. A multi-factor trending algorithm (popularity + recency + velocity + tags) surfaces what matters. Semantic search powered by embeddings lets users ask real questions, not just keyword match. Collections and watchlists enable personalized tracking.",
-    architecture:
-      "Next.js 14 + Tailwind + shadcn/ui frontend (Vercel) → FastAPI backend on Cloud Run (Python 3.11, SQLite + SQLAlchemy, FAISS for vectors) → Redis caching + rate limiting. Google OAuth + JWT for auth. Ingestion pipeline runs continuously, embedding content with sentence-transformers and indexing in FAISS. Structured logging tracks performance and errors.",
-    architectureDiagrams: [
-      {
-        title: "High-Level Architecture",
-        src: "/deepdive_prd/Next.js FastAPI Full Stack-2025-12-15-150632.svg",
-        alt: "High-Level Architecture showing Next.js Frontend, FastAPI Backend, Database, and Vercel Analytics",
-      },
-      {
-        title: "Search Flow",
-        src: "/deepdive_prd/Next.js FastAPI Full Stack-2025-12-15-150649.svg",
-        alt: "Sequence diagram showing user search flow from frontend through API to database",
-      },
-      {
-        title: "Data Model",
-        src: "/deepdive_prd/Next.js FastAPI Full Stack-2025-12-15-150757.svg",
-        alt: "Entity relationship diagram showing the data model structure",
-      },
-      {
-        title: "Deployment Architecture",
-        src: "/deepdive_prd/Next.js FastAPI Full Stack-2025-12-15-150808.svg",
-        alt: "Deployment architecture showing Docker and Google Cloud Run setup",
-      },
-    ],
-    decisions: [
-      {
-        title: "FAISS for Vector Search",
-        content:
-          "Chose FAISS (Facebook AI Similarity Search) for semantic search over traditional databases. Embeddings from sentence-transformers enable 'ask real questions' search instead of keyword matching. Users can search by concept, not exact text matches.",
-      },
-      {
-        title: "Multi-Factor Trending Algorithm",
-        content:
-          "Built a custom algorithm combining popularity, recency, velocity, and tags to surface what's actually trending in tech. Pure upvote counts miss emerging topics; pure recency buries important older content. The multi-factor approach balances both.",
-      },
-      {
-        title: "SQLite + SQLAlchemy",
-        content:
-          "Started with SQLite for rapid iteration and zero infrastructure overhead. SQLAlchemy provides type-safe queries and easy migration to Postgres later if needed. Ship fast now, scale when necessary.",
-      },
-      {
-        title: "Google OAuth + JWT",
-        content:
-          "Avoided building custom auth from scratch. Google OAuth provides trusted identity verification; JWT tokens enable stateless API authentication. Security and UX without reinventing the wheel.",
-      },
-      {
-        title: "Cloud Run for Serverless Scale",
-        content:
-          "Deployed on Google Cloud Run for automatic scaling and pay-per-request pricing. No need to provision servers or manage infrastructure. The ingestion pipeline runs continuously while the API scales to zero when idle.",
-      },
-    ],
-    results:
-      "Launched DeepDive v1.0 after 6-7 days of heads-down building. The platform ingests 200+ new items daily from Twitter, Reddit, HN, and 30+ RSS feeds. Semantic search powered by sentence-transformers and FAISS enables concept-based queries. Users can create collections and watchlists to track topics they care about. Multi-factor trending surfaces what's actually hot in tech.",
-    learnings:
-      "Building for yourself first creates the best product motivation. Semantic search is a game-changer—keyword matching feels primitive once you've used embeddings. Starting with SQLite and FAISS keeps infrastructure simple while delivering powerful features. Ship v1 fast, iterate based on real usage.",
-    nextSteps:
-      "Internship Hub: real-time feed of internship postings for students. AI-curated digests: daily/weekly tech briefings via email. Podcast + YouTube integration: add dev podcasts and channel updates alongside papers and repos. Collaboration features: share collections with friends or teammates. Mobile-first companion app: lightweight version for on-the-go discovery.",
+      "Grow the blog with more engineering write-ups. Implement view transitions API when it's more widely supported. Create more case studies with interactive demos. Consider adding a 'uses' page showing tools and setup.",
   },
 };
-
-export const writingPosts = [
-  {
-    slug: "bigquery-optimization",
-    title: "BigQuery Cost Optimization Patterns",
-    excerpt: "Five patterns that saved us $10K/month in BigQuery costs",
-    date: "2024-03-15",
-  },
-  {
-    slug: "k8s-reliability",
-    title: "Building Reliable Kubernetes Jobs",
-    excerpt: "Lessons from running 10,000+ production jobs",
-    date: "2024-02-20",
-  },
-  {
-    slug: "streaming-architectures",
-    title: "When to Stream vs Batch",
-    excerpt: "A practical guide to choosing the right data pipeline pattern",
-    date: "2024-01-10",
-  },
-];

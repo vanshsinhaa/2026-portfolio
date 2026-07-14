@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Home, Briefcase, User, Mail } from "lucide-react";
+import { Home, Briefcase, BookOpen, User, Mail } from "lucide-react";
 import { useState } from "react";
 
 export function BottomNav() {
@@ -20,6 +20,7 @@ export function BottomNav() {
   const links = [
     { href: "/", label: "Home", icon: Home },
     { href: "/work", label: "Work", icon: Briefcase },
+    { href: "/blog", label: "Blog", icon: BookOpen },
     { href: "/about", label: "About", icon: User },
     { href: "/contact", label: "Contact", icon: Mail },
   ];
