@@ -37,18 +37,18 @@ export function BlogCard({ post, index = 0 }: BlogCardProps) {
             style={{ background: post.gradient }}
           />
           <div
-            className="pointer-events-none absolute inset-0 opacity-25 mix-blend-overlay"
+            className="pointer-events-none absolute inset-0 opacity-[0.18] mix-blend-overlay"
             style={{ backgroundImage: noiseTexture }}
           />
-          <div className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-1000 ease-out group-hover:translate-x-full" />
+          <div className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-1000 ease-out group-hover:translate-x-full" />
 
-          <span className="absolute left-4 top-4 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] font-medium tracking-wide text-white/90 backdrop-blur-sm">
+          <span className="absolute left-4 top-4 rounded-full border border-black/10 bg-white/60 px-3 py-1 text-[11px] font-medium tracking-wide text-foreground/80 backdrop-blur-sm">
             {post.category}
           </span>
 
           {/* Ghost glyph */}
           <span
-            className="pointer-events-none absolute -bottom-6 left-4 select-none text-[7rem] leading-none text-white/15 transition-colors duration-500 group-hover:text-white/25"
+            className="pointer-events-none absolute -bottom-6 left-4 select-none text-[7rem] leading-none text-black/10 transition-colors duration-500 group-hover:text-black/20"
             style={{ fontFamily: "var(--font-favorit)" }}
           >
             ✳

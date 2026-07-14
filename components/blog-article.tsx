@@ -183,11 +183,11 @@ export function BlogArticle({ post }: { post: BlogPost }) {
             transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
           />
           <div
-            className="pointer-events-none absolute inset-0 opacity-25 mix-blend-overlay"
+            className="pointer-events-none absolute inset-0 opacity-[0.18] mix-blend-overlay"
             style={{ backgroundImage: noiseTexture }}
           />
           <span
-            className="pointer-events-none absolute -bottom-8 left-6 select-none text-[9rem] leading-none text-white/15 md:text-[12rem]"
+            className="pointer-events-none absolute -bottom-8 left-6 select-none text-[9rem] leading-none text-black/10 md:text-[12rem]"
             style={{ fontFamily: "var(--font-favorit)" }}
           >
             ✳

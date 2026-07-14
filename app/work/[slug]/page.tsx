@@ -70,10 +70,10 @@ export default async function CaseStudyPage({
               className="pointer-events-none absolute inset-0 opacity-25 mix-blend-overlay"
               style={{ backgroundImage: noiseTexture }}
             />
-            <span className="absolute left-5 top-5 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] font-medium tracking-wide text-white/90 backdrop-blur-sm">
+            <span className="absolute left-5 top-5 rounded-full border border-black/10 bg-white/60 px-3 py-1 text-[11px] font-medium tracking-wide text-foreground/80 backdrop-blur-sm">
               Case Study
             </span>
-            <span className="absolute right-5 top-5 font-mono text-xs text-white/60">
+            <span className="absolute right-5 top-5 font-mono text-xs text-black/40">
               {caseStudy.year}
             </span>
           </div>
@@ -96,13 +96,13 @@ export default async function CaseStudyPage({
             ))}
           </div>
 
-          {slug === "bigquery-rerun-manager" && (
+          {caseStudy.github && (
             <div className="mt-8">
               <a
-                href="https://github.com/vanshsinhaa/bigquery_rerun_manager"
+                href={caseStudy.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-lg border-2 border-[#3b0dd4]/30 bg-[#3b0dd4]/10 px-6 py-3 text-sm font-medium text-[#3b0dd4] transition-all hover:border-[#3b0dd4]/60 hover:bg-[#3b0dd4]/20 hover:shadow-lg hover:shadow-[#3b0dd4]/20"
+                className="group inline-flex items-center gap-2 rounded-full border-2 border-[#3b0dd4]/30 bg-[#3b0dd4]/10 px-6 py-3 text-sm font-medium text-[#3b0dd4] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#3b0dd4] hover:bg-[#3b0dd4] hover:text-white hover:shadow-lg hover:shadow-[#3b0dd4]/30 active:translate-y-0"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -114,6 +114,7 @@ export default async function CaseStudyPage({
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  className="transition-transform duration-300 group-hover:rotate-[360deg]"
                 >
                   <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
                   <path d="M9 18c-4.51 2-5-2-7-2" />
@@ -129,6 +130,7 @@ export default async function CaseStudyPage({
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                 >
                   <path d="M7 7h10v10" />
                   <path d="M7 17 17 7" />

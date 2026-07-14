@@ -31,8 +31,8 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Most students don't have a note-taking problem — they have a fragmentation problem. What happens when every piece of academic information enters the same system?",
     gradient:
-      "radial-gradient(110% 90% at 15% 20%, rgba(16, 185, 129, 0.85) 0%, rgba(16, 185, 129, 0) 55%), radial-gradient(90% 80% at 85% 14%, rgba(45, 212, 191, 0.6) 0%, rgba(45, 212, 191, 0) 55%), radial-gradient(110% 110% at 75% 90%, rgba(59, 13, 212, 0.7) 0%, rgba(59, 13, 212, 0) 62%), linear-gradient(135deg, #05130f 0%, #0a2b22 100%)",
-    glow: "rgba(16, 185, 129, 0.3)",
+      "radial-gradient(110% 90% at 15% 20%, rgba(110, 231, 183, 0.85) 0%, rgba(110, 231, 183, 0) 55%), radial-gradient(90% 80% at 85% 14%, rgba(94, 234, 212, 0.7) 0%, rgba(94, 234, 212, 0) 55%), radial-gradient(110% 110% at 75% 90%, rgba(196, 181, 253, 0.6) 0%, rgba(196, 181, 253, 0) 62%), linear-gradient(135deg, #ecfdf5 0%, #f0fdfa 100%)",
+    glow: "rgba(52, 211, 153, 0.28)",
     content: [
       { type: "paragraph", text: "Most students don't have a note-taking problem." },
       { type: "paragraph", text: "They have a fragmentation problem." },

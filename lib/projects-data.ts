@@ -18,6 +18,8 @@ export interface CaseStudy extends Project {
   role: string;
   timeline: string;
   team: string;
+  /** Optional repository link rendered as a GitHub button on the case study */
+  github?: string;
   metrics: { label: string; value: string }[];
   overview: string;
   problemDetails: string;
@@ -32,6 +34,20 @@ export interface CaseStudy extends Project {
 
 export const projects: Project[] = [
   {
+    slug: "savemygrade",
+    title: "SaveMyGrade",
+    problem:
+      "Local-first, multimodal RAG study system that turns a semester of notes into a searchable second brain",
+    stack: ["FastAPI", "Next.js", "ChromaDB", "SQLite", "Gemini"],
+    metric: "6 source types",
+    featured: true,
+    category: "full-stack",
+    year: "2026",
+    gradient:
+      "radial-gradient(110% 90% at 15% 20%, rgba(110, 231, 183, 0.85) 0%, rgba(110, 231, 183, 0) 55%), radial-gradient(90% 80% at 85% 14%, rgba(94, 234, 212, 0.7) 0%, rgba(94, 234, 212, 0) 55%), radial-gradient(110% 110% at 75% 90%, rgba(196, 181, 253, 0.6) 0%, rgba(196, 181, 253, 0) 62%), linear-gradient(135deg, #ecfdf5 0%, #f0fdfa 100%)",
+    glow: "rgba(52, 211, 153, 0.28)",
+  },
+  {
     slug: "bigquery-rerun-manager",
     title: "BigQuery Query Rerun Manager",
     problem:
@@ -42,8 +58,8 @@ export const projects: Project[] = [
     category: "data-engineering",
     year: "2025",
     gradient:
-      "radial-gradient(120% 90% at 15% 20%, rgba(59, 13, 212, 0.95) 0%, rgba(59, 13, 212, 0) 55%), radial-gradient(90% 80% at 85% 12%, rgba(34, 211, 238, 0.7) 0%, rgba(34, 211, 238, 0) 55%), radial-gradient(100% 100% at 78% 88%, rgba(99, 102, 241, 0.85) 0%, rgba(99, 102, 241, 0) 60%), radial-gradient(70% 70% at 28% 92%, rgba(14, 165, 233, 0.55) 0%, rgba(14, 165, 233, 0) 60%), linear-gradient(135deg, #07071d 0%, #12104a 100%)",
-    glow: "rgba(79, 70, 229, 0.35)",
+      "radial-gradient(120% 90% at 15% 20%, rgba(165, 180, 252, 0.9) 0%, rgba(165, 180, 252, 0) 55%), radial-gradient(90% 80% at 85% 12%, rgba(125, 211, 252, 0.8) 0%, rgba(125, 211, 252, 0) 55%), radial-gradient(100% 100% at 78% 88%, rgba(196, 181, 253, 0.85) 0%, rgba(196, 181, 253, 0) 60%), radial-gradient(70% 70% at 28% 92%, rgba(147, 197, 253, 0.6) 0%, rgba(147, 197, 253, 0) 60%), linear-gradient(135deg, #eef2ff 0%, #e0f2fe 100%)",
+    glow: "rgba(129, 140, 248, 0.25)",
   },
   {
     slug: "2026-portfolio",
@@ -56,18 +72,84 @@ export const projects: Project[] = [
     category: "full-stack",
     year: "2026",
     gradient:
-      "radial-gradient(110% 90% at 18% 22%, rgba(139, 92, 246, 0.9) 0%, rgba(139, 92, 246, 0) 55%), radial-gradient(90% 80% at 85% 15%, rgba(236, 72, 153, 0.6) 0%, rgba(236, 72, 153, 0) 55%), radial-gradient(110% 110% at 72% 90%, rgba(59, 13, 212, 0.9) 0%, rgba(59, 13, 212, 0) 62%), linear-gradient(135deg, #120724 0%, #1e0b3d 100%)",
-    glow: "rgba(139, 92, 246, 0.35)",
+      "radial-gradient(110% 90% at 18% 22%, rgba(216, 180, 254, 0.9) 0%, rgba(216, 180, 254, 0) 55%), radial-gradient(90% 80% at 85% 15%, rgba(249, 168, 212, 0.7) 0%, rgba(249, 168, 212, 0) 55%), radial-gradient(110% 110% at 72% 90%, rgba(165, 180, 252, 0.8) 0%, rgba(165, 180, 252, 0) 62%), linear-gradient(135deg, #faf5ff 0%, #fdf2f8 100%)",
+    glow: "rgba(216, 180, 254, 0.3)",
   },
 ];
 
 export const caseStudies: Record<string, CaseStudy> = {
+  savemygrade: {
+    ...projects.find((p) => p.slug === "savemygrade")!,
+    deck: "A local-first, multimodal RAG study system: capture everything you learn in a semester, then search it, chat with it, drill it, and see where it's thin.",
+    role: "Full-Stack Engineer & Architect",
+    timeline: "7 days (study layer)",
+    team: "Solo project",
+    github: "https://github.com/vanshsinhaa/savemygrade",
+    metrics: [
+      { label: "Lines of code", value: "~9,300" },
+      { label: "API endpoints", value: "40+" },
+      { label: "Test suite", value: "25 tests · ~3s" },
+      { label: "Source types", value: "6" },
+    ],
+    overview:
+      "SaveMyGrade is a single-user, localhost-only study system built by a student for students. During a semester you braindump everything you learn — typed notes, PDFs, lecture slides, whiteboard photos, screen recordings, YouTube lectures — into per-semester workspaces organized by course. Gemini's multimodal embeddings index all of it into ChromaDB, and the system then offers five ways to study from it: semantic search, RAG chat that answers only from your own material with citations that open the exact source, one-click flashcards tracked as auditable runs, topic-organized digests with real LaTeX rendering, and a gap view that flags which topics are thin before an exam. A live knowledge graph ties the corpus together, drawing extracted concepts and relations as an interactive map with per-capture provenance.",
+    problemDetails:
+      "Students don't have a note-taking problem — they have a fragmentation problem. By mid-semester, course material is scattered across lecture slides, PDFs, recorded lectures, screenshots, YouTube videos, and ChatGPT conversations whose context evaporates when the tab closes. Finding information becomes harder than understanding it, and the same context gets re-explained to a chatbot every session. The success criterion was written down before any code: you stop going to ChatGPT, Google, or your raw notes to answer a question about material you already captured. Two insights shaped everything downstream — retrieval is the product, since the quality of an answer is largely determined before the model generates a single token; and memory compounds, since every capture permanently improves future retrieval.",
+    approach:
+      "Rather than starting from zero, the project forks an existing multimodal indexing tool after a written keep/change/remove analysis — inheriting a working, already-debugged Gemini embedding pipeline on day one and spending the effort on the study layer, the actual differentiator. A discovery document and implementation spec predate the code, recording scope, non-goals, and resolved decisions. Capture is deliberate, never automatic: everything enters via an explicit action, because auto-scanning a laptop indexes a semester's worth of noise. Workspaces are semesters and form a hard isolation boundary; courses are a fixed list set at onboarding. Midway through, a formal architecture self-review produced thirteen prioritized findings — and the code shows the critical ones were then systematically fixed rather than filed away.",
+    architecture:
+      "A Next.js 15 / React 19 frontend proxies /api/* to a FastAPI backend, so everything runs on one origin. The load-bearing decision is a two-store split: ChromaDB holds embedded chunks (768-dim Gemini vectors, cosine space) and answers exactly one kind of question — similarity — while SQLite holds everything relational: workspaces, courses, ingestion jobs, generation runs, flashcards, conversations, and the knowledge graph. Ingestion runs on background threads as real state machines (queued → running → complete | failed | cancelled) with cooperative cancellation, and a startup orphan sweep fails anything interrupted by a restart. Workspace isolation is enforced at exactly two choke points — one metadata stamp on every vector write, one scope filter on every read — the one invariant the system will not break, verified live by the test suite.",
+    decisions: [
+      {
+        title: "Two Stores, Each for What It's Good At",
+        content:
+          "ChromaDB answers similarity; SQLite answers everything relational. Rows link to vectors via lists of chunk IDs. The spec explicitly warned against the tempting shortcut of stuffing structured entities into vector-store metadata — questions like 'what's the latest run for this course?' or 'is this deck stale?' are relational queries. Because data lives in the right store, every later feature — staleness detection, auditable runs, provenance, the knowledge graph — became a natural query instead of a hack.",
+      },
+      {
+        title: "Isolation at Choke Points, Not by Convention",
+        content:
+          "Every chunk written to the vector store is stamped with workspace and course metadata in one function; every query passes through one scope filter that builds the where-clause. One choke point per direction means no new route can silently forget the filter. The contributing guide elevates this to 'the one invariant you must not break,' and a test proves it: cross-workspace searches return nothing.",
+      },
+      {
+        title: "Media Understood, Not Just Embedded",
+        content:
+          "The biggest quality win in the project's history wasn't a better prompt. Early on, an image was findable via its multimodal embedding, but its chunk text was just a filename placeholder — so a whiteboard photo contributed literally nothing to chat, flashcards, or digests. One additional Gemini vision call at ingest transcribes visible text, equations, and diagram annotations into dense captions that become the chunk text. Every downstream feature became truly multimodal at zero architectural cost.",
+      },
+      {
+        title: "A Layered Relevance Floor",
+        content:
+          "Empirically, unrelated academic prose sits at cosine 0.4–0.55 and real matches at 0.55–0.8 — the bands overlap, so no single absolute cut separates them. The fix is two layers: an absolute floor below which a hit is noise regardless of context, and a relative floor at 0.72× the top hit that drops the off-course tag-along while keeping uniformly strong result sets. When nothing survives, chat refuses honestly — 'capture some notes on it first' — without spending a generation call.",
+      },
+      {
+        title: "Generation as Auditable Runs",
+        content:
+          "Flashcard generation is a tracked run with a state machine, timestamps, chunk counts, and error messages — not a fire-and-forget call. Model output is validated as JSON before anything is written, a failed run never touches the previous deck, and staleness is a pure data comparison: cards are stale when material changed after the last complete run. The UI renders five designed states — empty, generating, ready, stale, failed — each specified before implementation.",
+      },
+      {
+        title: "Living on the Free Tier",
+        content:
+          "The whole product must run on Gemini's free tier, because the target user is a student. That constraint produced real engineering: a self-imposed rate limiter deliberately under the upstream caps that raises instead of exiting when quota runs out, selective retries that skip unrecoverable failures, moves that re-tag chunks in place with zero re-embedding, and oversized media that skips caption calls guaranteed to fail. Scarcity shaped the architecture in ways an unlimited key never would have.",
+      },
+      {
+        title: "Fake the Expensive Dependency, Keep Everything Else Real",
+        content:
+          "The test harness boots the real FastAPI app against real SQLite and real ChromaDB in a temp directory, with every Gemini call replaced by deterministic fakes — so 25 tests run offline in about three seconds while exercising actual storage, scoping, and state machines. The cleverest fake: embeddings are bag-of-words hash vectors calibrated so their score bands mirror the real model's, meaning relevance-floor tests exercise the actual filtering logic rather than a mock of it.",
+      },
+    ],
+    results:
+      "The study layer shipped in about a week: roughly 3,300 lines of Python across ten modules and 6,000 lines of TypeScript across 27 components, exposing 40+ REST endpoints over six source types. YouTube lectures are analyzed from their URL without downloading, and citations round-trip to an embedded player that seeks directly to the cited moment. The knowledge graph prunes exactly a capture's contribution on delete and re-colors on move with zero writes, because provenance is stored per-capture. CI runs the offline suite, a type check, and a production build on every push. The project is MIT-licensed with its remaining findings published as a contribution backlog.",
+    learnings:
+      "Decide where data lives before writing features — the two-store split made everything downstream a natural query. Enforce invariants at choke points, not by convention. Model work as records with state machines and you get progress UI, cancellation, crash recovery, and auditability almost for free. In RAG systems the unglamorous half is the product: relevance floors, honest refusals, and citation provenance did more than any generation-side tuning. And when AI writes more of the code, architecture and conceptual integrity become the scarce skill — implementation is becoming cheaper; architecture isn't.",
+    nextSteps:
+      "Real SSE streaming for chat (the frontend already renders progressive text). Page-aware PDF citations so the viewer jumps to the cited page. A visible 'built from N of M chunks' indicator instead of silent context truncation. One-command export/backup of a semester. Gemini-named gap-view clusters in place of keyword labels. Focus traps and full keyboard navigation for accessibility. Docker packaging.",
+  },
   "bigquery-rerun-manager": {
-    ...projects[0],
+    ...projects.find((p) => p.slug === "bigquery-rerun-manager")!,
     deck: "A production-oriented, metadata-driven system for executing and re-running grouped BigQuery queries using Docker and Kubernetes.",
     role: "Lead Data Engineer",
     timeline: "4 months",
     team: "Solo project",
+    github: "https://github.com/vanshsinhaa/bigquery_rerun_manager",
     metrics: [
       { label: "Queries/day", value: "500+" },
       { label: "Avg execution time", value: "<30s" },

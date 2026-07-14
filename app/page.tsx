@@ -229,6 +229,7 @@ export default function HomePage() {
                   key={project.slug}
                   project={project}
                   index={index}
+                  size={index === 0 ? "large" : "default"}
                 />
               ))}
             </div>
