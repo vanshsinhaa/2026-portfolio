@@ -1,0 +1,278 @@
+[
+  {
+    "num": "02",
+    "slug": "savemygrade",
+    "categories": [
+      "Full-Stack",
+      "RAG"
+    ],
+    "title": "SaveMyGrade",
+    "filters": [
+      "fullstack"
+    ],
+    "locked": false,
+    "hover": "#34D399",
+    "status": "complete",
+    "caseTitle": "SaveMyGrade",
+    "year": "2026",
+    "meta": [
+      "Role: Full-Stack Engineer & Architect",
+      "Timeline: 7 days (study layer)",
+      "Team: Solo project"
+    ],
+    "carousel": [
+      "/projects/savemygrade/intro-home-screen.png",
+      "/projects/savemygrade/overviewdashboard.png",
+      "/projects/savemygrade/captures-view.png",
+      "/projects/savemygrade/search-results.png",
+      "/projects/savemygrade/chatview-withtext.png",
+      "/projects/savemygrade/chatview-notext.png",
+      "/projects/savemygrade/flashcards.png",
+      "/projects/savemygrade/digests.png",
+      "/projects/savemygrade/gap-view.png",
+      "/projects/savemygrade/graph-query.png",
+      "/projects/savemygrade/zoomed-out-graph.png",
+      "/projects/savemygrade/video-preview.png"
+    ],
+    "carouselAspect": 0.5,
+    "blocks": [
+      {
+        "type": "text",
+        "paragraphs": [
+          "A local-first, multimodal RAG study system: capture everything you learn in a semester, then search it, chat with it, drill it, and see where it's thin.",
+          "SaveMyGrade is a single-user, localhost-only study system built by a student for students. During a semester you braindump everything you learn — typed notes, PDFs, lecture slides, whiteboard photos, screen recordings, YouTube lectures — into per-semester workspaces organized by course. Gemini's multimodal embeddings index all of it into ChromaDB, and the system then offers five ways to study from it: semantic search, RAG chat that answers only from your own material with citations that open the exact source, one-click flashcards tracked as auditable runs, topic-organized digests with real LaTeX rendering, and a gap view that flags which topics are thin before an exam. A live knowledge graph ties the corpus together, drawing extracted concepts and relations as an interactive map with per-capture provenance.",
+          "<a class=\"case__link\" target=\"_blank\" rel=\"noopener\" href=\"https://github.com/vanshsinhaa/savemygrade\">View on GitHub</a>"
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "The problem",
+        "paragraphs": [
+          "Students don't have a note-taking problem — they have a fragmentation problem. By mid-semester, course material is scattered across lecture slides, PDFs, recorded lectures, screenshots, YouTube videos, and ChatGPT conversations whose context evaporates when the tab closes. Finding information becomes harder than understanding it, and the same context gets re-explained to a chatbot every session.",
+          "The success criterion was written down before any code: you stop going to ChatGPT, Google, or your raw notes to answer a question about material you already captured. Two insights shaped everything downstream — retrieval is the product, since the quality of an answer is largely determined before the model generates a single token; and memory compounds, since every capture permanently improves future retrieval."
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "Approach",
+        "paragraphs": [
+          "Rather than starting from zero, the project forks an existing multimodal indexing tool after a written keep/change/remove analysis — inheriting a working, already-debugged Gemini embedding pipeline on day one and spending the effort on the study layer, the actual differentiator. A discovery document and implementation spec predate the code, recording scope, non-goals, and resolved decisions.",
+          "Capture is deliberate, never automatic: everything enters via an explicit action, because auto-scanning a laptop indexes a semester's worth of noise. Workspaces are semesters and form a hard isolation boundary; courses are a fixed list set at onboarding. Midway through, a formal architecture self-review produced thirteen prioritized findings — and the code shows the critical ones were then systematically fixed rather than filed away."
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "Architecture",
+        "paragraphs": [
+          "A Next.js 15 / React 19 frontend proxies /api/* to a FastAPI backend, so everything runs on one origin. The load-bearing decision is a two-store split: ChromaDB holds embedded chunks (768-dim Gemini vectors, cosine space) and answers exactly one kind of question — similarity — while SQLite holds everything relational: workspaces, courses, ingestion jobs, generation runs, flashcards, conversations, and the knowledge graph.",
+          "Ingestion runs on background threads as real state machines (queued → running → complete | failed | cancelled) with cooperative cancellation, and a startup orphan sweep fails anything interrupted by a restart. Workspace isolation is enforced at exactly two choke points — one metadata stamp on every vector write, one scope filter on every read — the one invariant the system will not break, verified live by the test suite."
+        ]
+      },
+      {
+        "type": "text2col",
+        "columns": [
+          {
+            "heading": "Two stores, each for what it's good at",
+            "paragraphs": [
+              "ChromaDB answers similarity; SQLite answers everything relational. Rows link to vectors via lists of chunk IDs. The spec explicitly warned against the tempting shortcut of stuffing structured entities into vector-store metadata — questions like 'what's the latest run for this course?' or 'is this deck stale?' are relational queries. Because data lives in the right store, every later feature — staleness detection, auditable runs, provenance, the knowledge graph — became a natural query instead of a hack."
+            ]
+          },
+          {
+            "heading": "Isolation at choke points, not by convention",
+            "paragraphs": [
+              "Every chunk written to the vector store is stamped with workspace and course metadata in one function; every query passes through one scope filter that builds the where-clause. One choke point per direction means no new route can silently forget the filter. The contributing guide elevates this to 'the one invariant you must not break,' and a test proves it: cross-workspace searches return nothing."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "text2col",
+        "columns": [
+          {
+            "heading": "Media understood, not just embedded",
+            "paragraphs": [
+              "The biggest quality win in the project's history wasn't a better prompt. Early on, an image was findable via its multimodal embedding, but its chunk text was just a filename placeholder — so a whiteboard photo contributed literally nothing to chat, flashcards, or digests. One additional Gemini vision call at ingest transcribes visible text, equations, and diagram annotations into dense captions that become the chunk text. Every downstream feature became truly multimodal at zero architectural cost."
+            ]
+          },
+          {
+            "heading": "A layered relevance floor",
+            "paragraphs": [
+              "Empirically, unrelated academic prose sits at cosine 0.4–0.55 and real matches at 0.55–0.8 — the bands overlap, so no single absolute cut separates them. The fix is two layers: an absolute floor below which a hit is noise regardless of context, and a relative floor at 0.72× the top hit that drops the off-course tag-along while keeping uniformly strong result sets. When nothing survives, chat refuses honestly — 'capture some notes on it first' — without spending a generation call."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "text2col",
+        "columns": [
+          {
+            "heading": "Living on the free tier",
+            "paragraphs": [
+              "The whole product must run on Gemini's free tier, because the target user is a student. That constraint produced real engineering: a self-imposed rate limiter deliberately under the upstream caps that raises instead of exiting when quota runs out, selective retries that skip unrecoverable failures, moves that re-tag chunks in place with zero re-embedding, and oversized media that skips caption calls guaranteed to fail. Scarcity shaped the architecture in ways an unlimited key never would have."
+            ]
+          },
+          {
+            "heading": "Fake the expensive dependency, keep everything else real",
+            "paragraphs": [
+              "The test harness boots the real FastAPI app against real SQLite and real ChromaDB in a temp directory, with every Gemini call replaced by deterministic fakes — so 25 tests run offline in about three seconds while exercising actual storage, scoping, and state machines. The cleverest fake: embeddings are bag-of-words hash vectors calibrated so their score bands mirror the real model's, meaning relevance-floor tests exercise the actual filtering logic rather than a mock of it."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "Results",
+        "paragraphs": [
+          "The study layer shipped in about a week: roughly 3,300 lines of Python across ten modules and 6,000 lines of TypeScript across 27 components, exposing 40+ REST endpoints over six source types. YouTube lectures are analyzed from their URL without downloading, and citations round-trip to an embedded player that seeks directly to the cited moment. The knowledge graph prunes exactly a capture's contribution on delete and re-colors on move with zero writes, because provenance is stored per-capture. CI runs the offline suite, a type check, and a production build on every push. The project is MIT-licensed with its remaining findings published as a contribution backlog."
+        ],
+        "bullets": [
+          "~9,300 lines of code",
+          "40+ API endpoints",
+          "25 tests, running offline in ~3s",
+          "6 source types"
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "Learnings",
+        "paragraphs": [
+          "Decide where data lives before writing features — the two-store split made everything downstream a natural query. Enforce invariants at choke points, not by convention. Model work as records with state machines and you get progress UI, cancellation, crash recovery, and auditability almost for free. In RAG systems the unglamorous half is the product: relevance floors, honest refusals, and citation provenance did more than any generation-side tuning. And when AI writes more of the code, architecture and conceptual integrity become the scarce skill — implementation is becoming cheaper; architecture isn't."
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "Next steps",
+        "paragraphs": [
+          "Real SSE streaming for chat (the frontend already renders progressive text). Page-aware PDF citations so the viewer jumps to the cited page. A visible 'built from N of M chunks' indicator instead of silent context truncation. One-command export/backup of a semester. Gemini-named gap-view clusters in place of keyword labels. Focus traps and full keyboard navigation for accessibility. Docker packaging."
+        ]
+      }
+    ],
+    "noCaseStudy": false
+  },
+  {
+    "num": "01",
+    "slug": "bigquery-rerun-manager",
+    "categories": [
+      "Data",
+      "Infra"
+    ],
+    "title": "BigQuery Rerun Manager",
+    "filters": [
+      "data"
+    ],
+    "locked": false,
+    "hover": "#818CF8",
+    "status": "complete",
+    "caseTitle": "BigQuery Query Rerun Manager",
+    "year": "2025",
+    "meta": [
+      "Role: Lead Data Engineer",
+      "Timeline: 4 months",
+      "Team: Solo project"
+    ],
+    "carousel": [
+      "/gallery/mesh-1.png",
+      "/gallery/mesh-2.png",
+      "/gallery/mesh-3.png"
+    ],
+    "carouselAspect": 0.5625,
+    "blocks": [
+      {
+        "type": "text",
+        "paragraphs": [
+          "A production-oriented, metadata-driven system for executing and re-running grouped BigQuery queries using Docker and Kubernetes.",
+          "Queries are stored as metadata in BigQuery, executed via Dockerized Python applications, and orchestrated using Kubernetes Jobs. All executions are logged back to BigQuery for full observability and auditability.",
+          "<a class=\"case__link\" target=\"_blank\" rel=\"noopener\" href=\"https://github.com/vanshsinhaa/bigquery_rerun_manager\">View on GitHub</a>"
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "The problem",
+        "paragraphs": [
+          "In production analytics pipelines, BigQuery queries often fail due to upstream data issues, schema changes, or transient errors. Re-running queries manually was error-prone, hard to audit, and difficult to scale across multiple query groups. There was no lightweight, metadata-driven mechanism to safely re-execute grouped queries with proper logging and traceability."
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "Approach",
+        "paragraphs": [
+          "Designed a cloud-native system that executes grouped BigQuery queries using metadata stored in BigQuery. Built as a Dockerized Python application deployed via Kubernetes Jobs/CronJobs. All execution status, errors, and timestamps are logged back to BigQuery for full observability. Queries are defined dynamically via metadata tables, allowing updates without code changes."
+        ]
+      },
+      {
+        "type": "image",
+        "src": "/projects/bigquery-rerun-manager/bigquery-architecture.svg"
+      },
+      {
+        "type": "text",
+        "heading": "Architecture",
+        "paragraphs": [
+          "Kubernetes Jobs trigger Docker containers running Python apps → Read query metadata from BigQuery → Execute SQL queries sequentially → Log all results (success/failure, timestamps, errors) back to BigQuery execution log table. Service account authentication ensures security."
+        ]
+      },
+      {
+        "type": "image",
+        "src": "/projects/bigquery-rerun-manager/bigquery-execution-flow.svg"
+      },
+      {
+        "type": "text2col",
+        "columns": [
+          {
+            "heading": "Metadata-driven execution",
+            "paragraphs": [
+              "Stored queries in BigQuery instead of code to allow dynamic updates without redeployments. This enabled data teams to modify queries without waiting for infrastructure changes, significantly improving iteration speed."
+            ]
+          },
+          {
+            "heading": "Kubernetes Jobs over long-running services",
+            "paragraphs": [
+              "Chose Jobs over persistent services for isolation, retry semantics, and cost efficiency. Batch workloads don't need always-running infrastructure, and K8s Jobs provide automatic cleanup and resource management."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "text2col",
+        "columns": [
+          {
+            "heading": "BigQuery as single source of truth",
+            "paragraphs": [
+              "Both query definitions and execution logs live in BigQuery for consistency and auditability. This eliminated the need for external databases and made debugging significantly easier with SQL-based analysis of execution history."
+            ]
+          },
+          {
+            "heading": "Idempotency by design",
+            "paragraphs": [
+              "Ensured queries can be safely re-run without corrupting metadata or creating duplicates. Added execution timestamps and query fingerprints to track reruns while maintaining data integrity."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "image",
+        "src": "/projects/bigquery-rerun-manager/bigquery-data-model.svg"
+      },
+      {
+        "type": "text",
+        "heading": "Results",
+        "paragraphs": [
+          "Eliminated manual query re-runs saving ~10 hours/week of engineering time. Achieved 98.5% success rate with automatic error logging. Reduced mean time to recovery from 2 hours to 15 minutes through better visibility. Query groups now scale independently via separate Kubernetes jobs."
+        ],
+        "bullets": [
+          "500+ queries/day",
+          "<30s average execution time",
+          "98.5% success rate"
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "Learnings & next steps",
+        "paragraphs": [
+          "Metadata-driven systems provide incredible flexibility but require careful schema design. Kubernetes Jobs are perfect for batch workloads — simpler than full orchestration frameworks for focused use cases. Logging everything to BigQuery made debugging trivial and enabled data-driven optimization of query patterns.",
+          "Next: Slack alerting on failures, per-query retry policies, parallel execution for large query groups, a simple UI dashboard for execution history, and Airflow integration for complex DAG dependencies."
+        ]
+      }
+    ],
+    "noCaseStudy": false
+  }
+]

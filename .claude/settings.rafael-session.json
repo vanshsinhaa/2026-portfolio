@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"import json;d=json.load\\(open\\(r'C:/Users/Vansh/2026-portfolio/rafael-clone/src/data/projects.json'\\)\\);print\\(json.dumps\\(d,indent=1\\)[:4000]\\)\")",
+      "Bash(python *)"
+    ]
+  }
+}
