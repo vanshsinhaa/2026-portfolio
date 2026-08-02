@@ -143,6 +143,9 @@ html {
 }
 
 body { min-height: 100vh; }
+/* Never allow sideways scroll — oversized text mid-fit (or any stray wide
+   element) must clip, not widen the page. */
+html, body { overflow-x: clip; max-width: 100%; }
 /* Mobile: the theme bg on the BODY is what iOS Safari samples for the browser
    toolbar / status bar (it re-samples on a system-appearance change). It follows
    the theme, which on mobile follows the system — so page + toolbar flip together.
