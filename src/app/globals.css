@@ -2468,6 +2468,15 @@ html.has-modal .floating[data-scope-main] {
 }
 
 @media (width <= 820px) {
+  /* Pre-JS default for the measured display size. The 4rem fallback baked into
+     every `var(--fit, 4rem)` is a desktop size — on a phone it overflows the
+     viewport until the fit pass lands (and stays overflowed if that pass never
+     runs). A viewport-relative value is close to what the fit resolves to, and
+     the inline style JS writes on <html> still wins once it does run. */
+  :root {
+    --fit: 6vw;
+  }
+
   .biocv[data-scope-main] {
     grid-template-columns: 1fr;
   }
