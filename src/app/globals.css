@@ -138,6 +138,10 @@ html {
   font-family: var(--font-text);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* iOS Safari inflates text it deems small, breaking the measured fit —
+     the JS-computed --fit sizes must render exactly as measured. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
   /* Theme transition */
   transition: background-color 0.4s var(--ease), color 0.4s var(--ease);
 }
