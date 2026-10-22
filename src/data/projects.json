@@ -187,8 +187,10 @@
         ]
       },
       {
-        "type": "image",
-        "src": "/projects/bigquery-rerun-manager/bigquery-architecture.svg"
+        "type": "embed",
+        "src": "/figures/bq-dock.html",
+        "title": "Fig 2 · Architecture: a crane-run container coupled to BigQuery",
+        "aspect": 1.15
       },
       {
         "type": "text",
@@ -198,8 +200,10 @@
         ]
       },
       {
-        "type": "image",
-        "src": "/projects/bigquery-rerun-manager/bigquery-execution-flow.svg"
+        "type": "embed",
+        "src": "/figures/bq-marbles.html",
+        "title": "Fig 3 · Execution flow as a marble run",
+        "aspect": 1.15
       },
       {
         "type": "text2col",
@@ -236,8 +240,10 @@
         ]
       },
       {
-        "type": "image",
-        "src": "/projects/bigquery-rerun-manager/bigquery-data-model.svg"
+        "type": "embed",
+        "src": "/figures/bq-ledger.html",
+        "title": "Fig 4 · Data model: query cards and run receipts",
+        "aspect": 1.15
       },
       {
         "type": "text",

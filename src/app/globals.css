@@ -1073,6 +1073,11 @@ img, video { display: block; max-width: 100%; border-radius: 12px; }
   padding: 0;
 }
 
+.case-page .case__embed iframe {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
 .case-page .case__grid-imgs img {
   border-radius: 10px;
 }
