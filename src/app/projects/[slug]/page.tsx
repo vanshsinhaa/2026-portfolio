@@ -70,10 +70,6 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             title={`Interactive figure: ${p.caseTitle || p.title}`}
             scrolling="no"
           />
-          <a className="case-page__scroll" href="#case">
-            <span>{p.caseTitle || p.title}</span>
-            <span aria-hidden="true">scroll ↓</span>
-          </a>
         </section>
       )}
 
