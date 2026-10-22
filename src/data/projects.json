@@ -21,18 +21,7 @@
       "Team: Solo project"
     ],
     "carousel": [
-      "/projects/savemygrade/intro-home-screen.png",
-      "/projects/savemygrade/overviewdashboard.png",
-      "/projects/savemygrade/captures-view.png",
-      "/projects/savemygrade/search-results.png",
-      "/projects/savemygrade/chatview-withtext.png",
-      "/projects/savemygrade/chatview-notext.png",
-      "/projects/savemygrade/flashcards.png",
-      "/projects/savemygrade/digests.png",
-      "/projects/savemygrade/gap-view.png",
-      "/projects/savemygrade/graph-query.png",
-      "/projects/savemygrade/zoomed-out-graph.png",
-      "/projects/savemygrade/video-preview.png"
+      "/figures/study-catalog.html"
     ],
     "carouselAspect": 0.5,
     "blocks": [
@@ -171,11 +160,9 @@
       "Team: Solo project"
     ],
     "carousel": [
-      "/gallery/mesh-1.png",
-      "/gallery/mesh-2.png",
-      "/gallery/mesh-3.png"
+      "/figures/rerun-machine.html"
     ],
-    "carouselAspect": 0.5625,
+    "carouselAspect": 0.66,
     "blocks": [
       {
         "type": "text",

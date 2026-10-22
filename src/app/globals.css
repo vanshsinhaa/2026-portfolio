@@ -266,7 +266,7 @@ img, video { display: block; max-width: 100%; border-radius: 12px; }
    from the .case grid row-gap (== --gut, the modal gutter); extra separation
    between sections is added via .case__section (see below). */
 .case__text { grid-column: 2; }
-.case__text, .case__text2col-col, .case__figrow-text { font-size: 0.945rem; line-height: 1.3; }
+.case__text, .case__text2col-col, .case__figrow-text { font-size: 1.04rem; line-height: 1.35; }
 .case__text p, .case__text2col-col p, .case__figrow-text p { margin-bottom: 1rem; }
 .case__text p:last-child, .case__text2col-col p:last-child, .case__figrow-text p:last-child { margin-bottom: 0; }
 .case__text em, .case__text i, .case__text2col-col em, .case__figrow-text em { font-style: italic; }
@@ -274,7 +274,7 @@ img, video { display: block; max-width: 100%; border-radius: 12px; }
 .case__bullets { margin: 0; padding-left: 1.1em; list-style: disc; }
 .case__bullets li { margin-bottom: 0.5rem; }
 .case__bullets li:last-child { margin-bottom: 0; }
-.case__heading { font-size: 1.035rem; font-weight: 500; margin: 0 0 0.6rem; }
+.case__heading { font-size: 1.14rem; font-weight: 500; margin: 0 0 0.6rem; }
 
 /* Inline links in case-study copy: underline + the site's NE arrow */
 .case__link {
@@ -382,14 +382,25 @@ img, video { display: block; max-width: 100%; border-radius: 12px; }
   opacity: 0;
 }
 .carousel__track img.is-current,
-.carousel__track video.is-current { opacity: 1; }
+.carousel__track video.is-current,
+.carousel__track iframe.is-current { opacity: 1; }
+/* an interactive figure (public/figures/*.html?compact) in place of images */
+.carousel__track iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  color-scheme: normal;
+  opacity: 0;
+}
 
 @media (max-width: 820px) {
   .case__text, .case__fig { grid-column: 1; }
-  /* case-study body copy −20% from the base size (vs −10% on desktop); looser
-     line height + no kerning for better mobile readability */
-  .case__text, .case__text2col-col, .case__figrow-text { font-size: 0.945rem; line-height: 1.35; font-kerning: none; }
-  .case__heading { font-size: 0.92rem; }
+  /* looser line height + no kerning for better mobile readability */
+  .case__text, .case__text2col-col, .case__figrow-text { font-size: 1rem; line-height: 1.4; font-kerning: none; }
+  .case__heading { font-size: 1rem; }
 }
 #loading-screen[data-scope-loader] {
   position: fixed;
@@ -996,6 +1007,250 @@ img, video { display: block; max-width: 100%; border-radius: 12px; }
   border-radius: 0;
 }
 
+/* Standalone case-study pages (src/app/projects/[slug]/page.tsx).
+   Reuses the .case grid from the old modal; the figure is the hero. */
+.case-page[data-scope-main] {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(1rem, 3vw, 2.5rem) clamp(1rem, 3vw, 2.5rem) 5rem;
+  min-height: 100vh;
+}
+
+.case-page__bar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .75rem 0;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.case-page .case-page__back[data-scope-main] {
+  text-decoration: none;
+  height: 42px;
+  padding: 0 1.25em;
+  font-size: 1rem;
+  border-radius: 11px;
+  gap: .4em;
+}
+
+.case-page__num {
+  font-family: var(--font-serif);
+  color: var(--fg-muted);
+}
+
+/* The figure fills the first screen, edge to edge, straight on the page
+   background; the write-up starts below it. */
+.case-page__hero {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-top: -3.6rem;
+  height: 100svh;
+  min-height: 480px;
+  margin-bottom: clamp(2rem, 5vw, 4rem);
+}
+
+.case-page__hero iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  color-scheme: normal;
+}
+
+.case-page__scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 1.1rem;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .2rem;
+  font-family: var(--font-serif);
+  color: var(--fg-muted);
+  text-decoration: none;
+  animation: case-scroll-cue 2.4s ease-in-out infinite;
+}
+
+.case-page__scroll span:first-child {
+  font-size: 1.15rem;
+  color: var(--fg);
+}
+
+.case-page__scroll span:last-child {
+  font-size: .78rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+@keyframes case-scroll-cue {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, 5px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-page__scroll { animation: none; }
+}
+
+#case { scroll-margin-top: 4rem; }
+
+/* 100vw counts the scrollbar; don't let the full-bleed hero cause sideways scroll */
+:root:has(.case-page) body { overflow-x: clip; }
+
+.case-page .case[data-scope-main] {
+  padding: 0;
+}
+
+.case-page .case__grid-imgs img {
+  border-radius: 10px;
+}
+
+.case-page__next {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-top: 5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--hairline);
+  font-family: var(--font-serif);
+  color: var(--fg-muted);
+}
+
+.case-page__next a {
+  color: var(--fg);
+  font-size: 1.4rem;
+  text-decoration: none;
+}
+
+.case-page__next a:hover { text-decoration: underline; }
+
+/* Isometric desk scene under the intro (public/figures/desk.html).
+   The iframe sets its own height once loaded; aspect-ratio holds the space. */
+.desk-scene[data-scope-main] {
+  margin-top: calc(var(--section-gap) * .35);
+}
+
+/* wider than the text column so the screen is readable and the keys are
+   big enough to click; centred on the viewport */
+.desk-scene iframe {
+  display: block;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(720px, calc(100vw - 32px));
+  aspect-ratio: 1;
+  border: 0;
+  background: transparent;
+  color-scheme: normal;
+}
+
+html.gallery-mode .desk-scene[data-scope-main] {
+  display: none;
+}
+
+/* 3D folder before section titles (src/components/Folder3D.tsx).
+   Sized in em so it scales with the fitted title text. Hovering the section
+   tips the front flap open and the papers rise out, staggered. */
+.folder3d {
+  position: relative;
+  display: inline-block;
+  width: .74em;
+  height: .56em;
+  margin-right: .28em;
+  vertical-align: -.01em;
+  perspective: 3em;
+  transform-style: preserve-3d;
+}
+
+.folder3d__back {
+  position: absolute;
+  inset: 0;
+  border-radius: .05em;
+  background: linear-gradient(#7c7c81, #68686d);
+}
+
+/* the tab on the back panel */
+.folder3d__back::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -.075em;
+  width: .3em;
+  height: .1em;
+  border-radius: .04em .06em 0 0;
+  background: #7c7c81;
+  clip-path: polygon(0 0, 78% 0, 100% 100%, 0 100%);
+}
+
+.folder3d__paper {
+  position: absolute;
+  left: .07em;
+  right: .07em;
+  top: .05em;
+  bottom: .1em;
+  border-radius: .025em;
+  background:
+    repeating-linear-gradient(to bottom, transparent 0 .055em, #0000001a .055em .062em) .06em .1em / calc(100% - .12em) 60% no-repeat,
+    #f3f3f0;
+  transform: translateY(.06em);
+  transition: transform .5s cubic-bezier(.32, .72, 0, 1);
+}
+
+.folder3d__paper:nth-child(2) { left: .1em; right: .05em; background-color: #e7e7e2; }
+.folder3d__paper:nth-child(4) {
+  left: .05em;
+  right: .1em;
+  background:
+    linear-gradient(var(--folder-accent), var(--folder-accent)) .06em .07em / .18em .05em no-repeat,
+    repeating-linear-gradient(to bottom, transparent 0 .055em, #0000001a .055em .062em) .06em .16em / calc(100% - .12em) 50% no-repeat,
+    #fbfbf8;
+}
+
+.folder3d__front {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: .09em;
+  bottom: 0;
+  border-radius: .05em;
+  background: linear-gradient(#b9b9be, #9c9ca1);
+  box-shadow: inset 0 .012em 0 #ffffff59, inset 0 -.04em 0 #00000014;
+  transform-origin: 50% 100%;
+  transition: transform .55s cubic-bezier(.32, .72, 0, 1);
+}
+
+/* fold line near the bottom of the front panel, like the macOS icon */
+.folder3d__front::after {
+  content: "";
+  position: absolute;
+  left: .04em;
+  right: .04em;
+  bottom: .07em;
+  height: .012em;
+  background: #00000018;
+}
+
+.section:hover .folder3d__front,
+.section:focus-within .folder3d__front { transform: rotateX(-34deg); }
+.section:hover .folder3d__paper:nth-child(2),
+.section:focus-within .folder3d__paper:nth-child(2) { transform: translateY(-.1em) rotate(-5deg); transition-delay: .05s; }
+.section:hover .folder3d__paper:nth-child(3),
+.section:focus-within .folder3d__paper:nth-child(3) { transform: translateY(-.15em) rotate(3deg); transition-delay: .1s; }
+.section:hover .folder3d__paper:nth-child(4),
+.section:focus-within .folder3d__paper:nth-child(4) { transform: translateY(-.19em) rotate(-1deg); transition-delay: .15s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .folder3d__front, .folder3d__paper { transition: none; }
+}
+
 .section__arrow[data-scope-main] {
   width: 1em;
   height: 1em;
@@ -1559,6 +1814,112 @@ html.gallery-mode .gallery[data-scope-main][data-cols] {
 
 .gallery__item[data-scope-main].is-loaded img[data-scope-main], .gallery__item[data-scope-main].is-loaded video[data-scope-main] {
   opacity: 1;
+}
+
+/* Interactive isometric figures on case pages (public/figures/*.html).
+   The iframe sizes itself to its content once loaded. */
+.case__embed iframe {
+  display: block;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color-scheme: normal;
+}
+
+/* Moodboard (gallery view) — pins curated from Pinterest. The header mirrors
+   the Spotify section's title + lede, but only shows in gallery mode. */
+.moodboard-head[data-scope-main] {
+  display: none;
+  border-top: 1px solid var(--hairline);
+  margin-top: calc(var(--section-gap) * .8);
+  padding: calc(var(--section-gap) * .2) 0 0;
+}
+
+html.gallery-mode .moodboard-head[data-scope-main] {
+  display: block;
+  animation: gallery-rise-in .6s var(--ease) both;
+}
+
+html.gallery-mode .moodboard-head[data-scope-main] + .gallery[data-scope-main] {
+  border-top: 0;
+  margin-top: 0;
+}
+
+.moodboard-title,
+.moodboard-lede {
+  font-family: var(--font-display);
+  font-size: var(--fit, 4rem);
+  line-height: .97;
+  letter-spacing: -.02em;
+  font-weight: 400;
+  margin: 0;
+}
+
+.moodboard-title {
+  color: var(--fg);
+  margin-bottom: .06em;
+}
+
+.moodboard-lede {
+  color: var(--fg-soft);
+  margin-bottom: .1em;
+}
+
+.pinterest-word {
+  color: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color .6s var(--ease);
+}
+
+.pinterest-logo {
+  display: inline-block;
+  width: .82em;
+  height: .82em;
+  vertical-align: -.08em;
+  margin-right: .2em;
+}
+
+/* Goes Pinterest-red once the gallery opens, and on hover */
+html.gallery-mode .pinterest-word {
+  animation: pinterest-red .8s .5s var(--ease) both;
+}
+
+.pinterest-word:hover,
+.moodboard-head:hover .pinterest-word {
+  color: #e60023;
+}
+
+@keyframes pinterest-red {
+  to { color: #e60023; }
+}
+
+/* Tiles: gentle lift + zoom on hover */
+.moodboard-item[data-scope-main] {
+  transition: translate .35s var(--ease);
+}
+
+.moodboard-item[data-scope-main]:hover {
+  translate: 0 -4px;
+}
+
+.moodboard-item[data-scope-main] img[data-scope-main],
+.moodboard-item[data-scope-main] video[data-scope-main] {
+  transition: opacity .45s var(--ease), scale .6s var(--ease);
+}
+
+.moodboard-item[data-scope-main]:hover img[data-scope-main],
+.moodboard-item[data-scope-main]:hover video[data-scope-main] {
+  scale: 1.04;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .moodboard-item[data-scope-main] { transition: none; }
+  .moodboard-item[data-scope-main] img[data-scope-main],
+  .moodboard-item[data-scope-main] video[data-scope-main] { transition: opacity .45s var(--ease); }
+  .moodboard-item[data-scope-main]:hover { translate: none; }
+  .moodboard-item[data-scope-main]:hover img[data-scope-main],
+  .moodboard-item[data-scope-main]:hover video[data-scope-main] { scale: none; }
 }
 
 /* Spotify "Listening" section — reuses .gallery__item card chrome for the
@@ -2159,7 +2520,7 @@ html.has-modal .floating[data-scope-main] {
 }
 
 .case__title[data-scope-main] {
-  font-size: 1.17rem;
+  font-size: 1.28rem;
   font-weight: 400;
   margin-bottom: .3rem;
 }

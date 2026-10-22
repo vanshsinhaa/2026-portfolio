@@ -3,6 +3,7 @@
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import type { SpotifyTrackCard } from "@/lib/spotify";
+import { Folder3D } from "@/components/Folder3D";
 
 const REFRESH_MS = 60_000;
 const SKELETON_COUNT = 8;
@@ -107,15 +108,7 @@ export function SpotifySection() {
   return (
     <section className="section" id="listening" ref={sectionRef} {...CID}>
       <h2 className="fit section__title" {...CID}>
-        <img
-          className="title-folder"
-          src="/folder-icon.png"
-          width="200"
-          height="170"
-          alt=""
-          aria-hidden="true"
-          {...CID}
-        />
+        <Folder3D accent="#1DB954" />
         Listening
       </h2>
       <p className="fit section__lede" {...CID}>
