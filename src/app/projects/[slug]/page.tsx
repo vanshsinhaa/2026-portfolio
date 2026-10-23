@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const p = bySlug(slug);
   if (!p) return {};
   const intro = (p.blocks?.[0]?.paragraphs?.[0] || "").replace(/<[^>]+>/g, "");
-  const title = `${p.caseTitle || p.title} — Vansh Sinha`;
+  const title = `${p.caseTitle || p.title} · Vansh Sinha`;
   return { title, description: intro, openGraph: { title, description: intro } };
 }
 

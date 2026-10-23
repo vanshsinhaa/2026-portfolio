@@ -32,7 +32,7 @@ function TrackCard({ track }: { track: SpotifyTrackCard }) {
       >
         <img
           src={track.albumArt}
-          alt={`${track.title} — ${track.artist}`}
+          alt={`${track.title} by ${track.artist}`}
           loading="lazy"
           onLoad={() => setLoaded(true)}
           {...CID}

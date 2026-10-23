@@ -13,7 +13,7 @@ const loaderScript = `
   var screen = document.getElementById("loading-screen");
   var el = document.getElementById("loader-percentage");
   if (!screen || !el) return;
-  var chars = "!<>-_\\\\/[]{}\\u2014=+*^?#%&@0123456789";
+  var chars = "!<>-_\\\\/[]{}=+*^?#%&@0123456789";
   var pct = 0, done = false;
   var rnd = function () { return chars[(Math.random() * chars.length) | 0]; };
   function finish() {

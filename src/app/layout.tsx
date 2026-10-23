@@ -5,20 +5,20 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Vansh Sinha",
   description:
-    "Student studying CS at ASU — building across full stack and infra.",
+    "Software engineer studying CS at ASU, building backend systems, data infrastructure, and full-stack products.",
   openGraph: {
     type: "website",
     siteName: "Vansh Sinha",
     title: "Vansh Sinha",
     description:
-      "Student studying CS at ASU — building across full stack and infra.",
+      "Software engineer studying CS at ASU, building backend systems, data infrastructure, and full-stack products.",
     images: ["/gallery/mesh-1.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Vansh Sinha",
     description:
-      "Student studying CS at ASU — building across full stack and infra.",
+      "Software engineer studying CS at ASU, building backend systems, data infrastructure, and full-stack products.",
     images: ["/gallery/mesh-1.png"],
   },
 };

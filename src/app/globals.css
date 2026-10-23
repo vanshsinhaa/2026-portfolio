@@ -2762,6 +2762,17 @@ html.has-modal .floating[data-scope-main] {
   border-radius: 3px;
 }
 
+/* navy mark on a white tile so it reads in both themes, sized like the AmEx box */
+.bio__company-logo--banner {
+  width: 36px;
+  flex-basis: 36px;
+  height: 36px;
+  padding: 4px;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 6px;
+}
+
 .bio__job[data-scope-main]:last-child {
   margin-bottom: 0;
 }

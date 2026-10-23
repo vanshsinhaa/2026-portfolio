@@ -308,7 +308,7 @@ function show(i) {
   trackIndex = (i + tracks.length) % tracks.length;
   const t = tracks[trackIndex];
   if (artEl.getAttribute("href") !== t.albumArt) artEl.setAttribute("href", t.albumArt);
-  titleEl.textContent = clip((t.nowPlaying ? "▶ " : "♪ ") + t.title + " — " + t.artist, 30);
+  titleEl.textContent = clip((t.nowPlaying ? "▶ " : "♪ ") + t.title + " by " + t.artist, 30);
   write();
 }
 async function loadTracks() {
@@ -328,7 +328,7 @@ function write() {
   textEl.textContent = "> " + line;
   cursor.setAttribute("x", String(TEXT_X + textEl.getComputedTextLength() + 0.4));
   const t = tracks[trackIndex];
-  const now = t ? (t.nowPlaying ? "now playing · " : "last played · ") + t.title + " — " + t.artist : "";
+  const now = t ? (t.nowPlaying ? "now playing · " : "last played · ") + t.title + " by " + t.artist : "";
   const text = power ? (now || "on") + (tracks.length > 1 ? "  ·  " + (trackIndex + 1) + "/" + tracks.length : "") : "off · press esc";
   if (readout.textContent !== text) readout.textContent = text;
 }

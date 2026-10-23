@@ -199,7 +199,7 @@ function paintStack(i) {
     const set = (r, s) => { if (lines[i][r].textContent !== s) lines[i][r].textContent = s; };
     set(0, QUERIES[i].id + "  run " + n);
     set(1, "status  " + (top.ok ? "SUCCESS" : "FAILED"));
-    set(2, "error   " + (top.ok ? "—" : "timeout"));
+    set(2, "error   " + (top.ok ? "none" : "timeout"));
     set(3, hhmmss(top.t) + " → " + hhmmss(top.t + 14));
     lines[i][1].classList.toggle("bad", !top.ok);
   }
