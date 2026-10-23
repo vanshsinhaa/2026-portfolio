@@ -2989,3 +2989,28 @@ html.has-modal .floating[data-scope-main] {
     font-size: 1.28rem;
   }
 }
+
+/* ---------------------------------------------------------------- phones
+   The big type shares one fitted size (--fit), set by the widest line. On a
+   phone the desktop line breaks make those lines long and the size tiny, so
+   phones get their own, shorter breaks (.mbr), the category chips on project
+   rows step aside, and the figures scale down to sit with the text. */
+.mbr { display: none; }
+
+@media (max-width: 560px) {
+  .dbr { display: none; }
+  .mbr { display: inline; }
+
+  .index-row .cat-chip { display: none; }
+
+  .desk-scene iframe { width: min(320px, 84vw); }
+
+  .spotify-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .spotify-card__title { font-size: .8rem; }
+  .spotify-card__artist, .spotify-card__time { font-size: .7rem; }
+
+  .case-page__hero {
+    height: min(100svh, 118vw);
+    min-height: 0;
+  }
+}

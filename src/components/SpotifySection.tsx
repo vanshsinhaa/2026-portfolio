@@ -113,14 +113,15 @@ export function SpotifySection() {
       </h2>
       <p className="fit section__lede" {...CID}>
         <span className="lede-dim" {...CID}>
-          Recently played on{" "}
+          Recently played on <br className="mbr" {...CID} />
           <span className="spotify-word">
             <img className="spotify-logo" src="/images/spotify_logo.svg" alt="" aria-hidden="true" />
             Spotify
           </span>
-          ,
-          <br {...CID} />
-          straight from the source.
+          ,{" "}
+          <br className="dbr" {...CID} />
+          straight <br className="mbr" {...CID} />
+          from the source.
         </span>
       </p>
       <div className="spotify-grid">
