@@ -15,7 +15,7 @@ export function BehaviorScripts() {
   useEffect(() => {
     if (window.__behaviorScriptsLoaded) return;
     window.__behaviorScriptsLoaded = true;
-    for (const src of ["/scripts/base.js", "/scripts/index.js"]) {
+    for (const src of ["/scripts/base.js", "/scripts/index.js", "/scripts/words.js"]) {
       const s = document.createElement("script");
       s.type = "module";
       s.src = src;

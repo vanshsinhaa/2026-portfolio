@@ -2880,14 +2880,6 @@ html.has-modal .floating[data-scope-main] {
 }
 
 @media (width <= 820px) {
-  /* Pre-JS default for the measured display size. The 4rem fallback baked into
-     every `var(--fit, 4rem)` is a desktop size — on a phone it overflows the
-     viewport until the fit pass lands (and stays overflowed if that pass never
-     runs). A viewport-relative value is close to what the fit resolves to, and
-     the inline style JS writes on <html> still wins once it does run. */
-  :root {
-    --fit: 6vw;
-  }
 
   .biocv[data-scope-main] {
     grid-template-columns: 1fr;
@@ -2990,16 +2982,19 @@ html.has-modal .floating[data-scope-main] {
   }
 }
 
-/* ---------------------------------------------------------------- phones
-   The big type shares one fitted size (--fit), set by the widest line. On a
-   phone the desktop line breaks make those lines long and the size tiny, so
-   phones get their own, shorter breaks (.mbr), the category chips on project
-   rows step aside, and the figures scale down to sit with the text. */
+/* ---------------------------------------------------------------- phones */
 .mbr { display: none; }
 
+/* Display type size, in CSS only (no measuring, so pinch-zoom can't disturb
+   it). On desktop and tablet it is a fixed share of the column width: the
+   longest hero line fills the column, as the old JS fit did. Phones get a
+   standard size and lines wrap naturally. */
+:root { --fit: calc((var(--w-eff) - 2 * var(--wrap-pad) - 2px) * .0675); }
+
 @media (max-width: 560px) {
+  :root { --fit: 2.15rem; }
+  .fit[data-scope-main] { white-space: normal; text-wrap: pretty; }
   .dbr { display: none; }
-  .mbr { display: inline; }
 
   .index-row .cat-chip { display: none; }
 
@@ -3013,4 +3008,32 @@ html.has-modal .floating[data-scope-main] {
     height: min(100svh, 118vw);
     min-height: 0;
   }
+}
+
+/* ---------------------------------------------------------------- word sweep
+   public/scripts/words.js wraps each word of the big type in .w. Words start
+   dim, flash to full strength one after another, then settle to their normal
+   colour. Once .words-done is set the spans carry no colour of their own, so
+   theme switches keep working. */
+.words:not(.words-done) .w {
+  color: color-mix(in srgb, var(--fg) 16%, var(--bg));
+}
+
+.words.words-in .w {
+  animation: word-in 900ms cubic-bezier(.3, .7, 0, 1) both;
+  animation-delay: calc(var(--i) * 38ms);
+}
+
+@keyframes word-in {
+  0% { color: color-mix(in srgb, var(--fg) 16%, var(--bg)); text-shadow: none; }
+  40% { color: var(--fg); text-shadow: 0 0 .3em color-mix(in srgb, var(--fg) 40%, transparent); }
+  100% { color: var(--c); text-shadow: none; }
+}
+
+:root[data-theme="light"] .words.words-in .w { animation-name: word-in-light; }
+
+@keyframes word-in-light {
+  0% { color: color-mix(in srgb, var(--fg) 16%, var(--bg)); }
+  40% { color: var(--fg); }
+  100% { color: var(--c); }
 }
