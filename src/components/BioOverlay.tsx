@@ -1,3 +1,5 @@
+import { LinkPills } from "@/components/LinkPills";
+
 export function BioOverlay() {
   return (
     <div className="bio-overlay" id="bio-overlay" aria-hidden="true" data-scope-main="">
@@ -16,12 +18,7 @@ export function BioOverlay() {
           <div className="biocv" data-scope-main="">
             <div className="bio__label" data-scope-main="">
               <p className="bio__name" data-scope-main="">Vansh Sinha</p>
-              <a href="mailto:vanshsinhaacademics@gmail.com" data-scope-main="">vanshsinhaacademics@gmail.com</a>
-              <div className="bio__links" data-scope-main="">
-                <a href="/resume/resume.pdf" target="_blank" rel="noopener" data-scope-main="">Resume</a>
-                <a href="https://www.linkedin.com/in/vanshsinha/" target="_blank" rel="noopener" data-scope-main="">LinkedIn</a>
-                <a href="https://github.com/vanshsinhaa" target="_blank" rel="noopener" data-scope-main="">GitHub</a>
-              </div>
+              <LinkPills />
             </div>
 
             <div className="bio__content bio__intro" data-scope-main="">
