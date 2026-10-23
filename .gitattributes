@@ -1,0 +1,9 @@
+# binary files: never convert line endings
+*.pdf binary
+*.png binary
+*.jpg binary
+*.JPG binary
+*.webp binary
+*.mp4 binary
+*.woff2 binary
+*.ttf binary
